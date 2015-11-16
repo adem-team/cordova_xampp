@@ -1,52 +1,191 @@
 <!DOCTYPE html>
-
 <html>
-    <head>
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
-        <title>Login Page</title>
-    </head>
-    <body>
-		<nav class="navbar navbar-default">
-		  <div class="container-fluid">
-		    <!-- Brand and toggle get grouped for better mobile display -->
-		    <div class="navbar-header">
-		      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-		        <span class="sr-only">Toggle navigation</span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		        <span class="icon-bar"></span>
-		      </button>
-		      <a class="navbar-brand" href="#">Lukison Group</a>
-		    </div>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy"
+	content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+<meta name="format-detection" content="telephone=no">
+<meta name="msapplication-tap-highlight" content="no">
+<meta name="viewport"
+	content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
 
-		    <!-- Collect the nav links, forms, and other content for toggling -->
-		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-		      <ul class="nav navbar-nav">
-		        <li><a href="index.html">Home <span class="sr-only">(current)</span></a></li>
-		        <li class="dropdown">
-		          <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profile <span class="caret"></span></a>
-		          <ul class="dropdown-menu">
-		            <li><a href="visi.html">Visi</a></li>
-		            <li><a href="misi.html">Misi</a></li>
-		          </ul>
-		        </li>
-		      </ul>
+<link rel="stylesheet" href="js/jMobile/jquery.mobile-1.4.5.css">
+<link rel="stylesheet" href="js/jWidget/styles/jqx.base.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 
-		      <ul class="nav navbar-nav navbar-right">
-		        <li class="active"><a href="login.html">Login</a></li>
-		      </ul>
-		    </div><!-- /.navbar-collapse -->
-		  </div><!-- /.container-fluid -->
-		</nav>
+<title>Hello World</title>
+</head>
+<body>
 
-		<div class="container">
-			Ini Adalah Halaman Login Form Lukison Group
+	<div data-theme="a" data-role="page">
+		<div data-theme="a" data-role="header" data-position="inline">
+			<h1>Lukison Group</h1>
+			<a data-theme="a" href="./" data-icon="arrow-l" data-role="button" rel="external" data-iconpos="notext">Home</a>
+			<a data-theme="a" href="./" data-icon="home" data-role="button" rel="external" data-iconpos="notext">Home</a>
 		</div>
-		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
- 
-        
-    </body>
+		<div data-role="navbar" class="ui-navbar ui-navbar-noicons" role="navigation">
+			<ul class="ui-grid-d">
+				<li class="ui-block-a">
+					<a data-theme="a" href="example-1.php#" data-role="button" class="ui-btn ui-btn-up-a">
+						<span class="ui-btn-inner">
+							<span class="ui-btn-text">EX1</span>
+						</span>
+					</a>
+				</li>
+				<li class="ui-block-b">
+					<a data-theme="a" href="example-2.php#" data-role="button" class="ui-btn ui-btn-up-a">
+						<span class="ui-btn-inner">
+							<span class="ui-btn-text">Ex2</span>
+						</span>
+					</a>
+				</li>
+				<li class="ui-block-c">
+					<a data-theme="a" href="example-3.php#" data-role="button" class="ui-btn ui-btn-up-a">
+						<span class="ui-btn-inner">
+							<span class="ui-btn-text">EX3</span>
+						</span>
+					</a>
+				</li>
+				<li class="ui-block-d">
+					<a data-theme="a" href="#" data-role="button" class="ui-btn ui-btn-up-a">
+						<span class="ui-btn-inner">
+							<span class="ui-btn-text">EX4</span>
+						</span>
+					</a>
+				</li>
+				<li class="ui-block-e">
+					<a data-theme="a" href="example-5.php#" data-role="button" class="ui-btn ui-btn-up-a">
+						<span class="ui-btn-inner">
+							<span class="ui-btn-text">EX5</span>
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="ui-content">
+			<ul data-role="listview" data-inset="true" data-filter="true">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="register.html">Register</a></li>
+				<li><a href="login.html">Login</a></li>
+			</ul>
+			<form action="example-4.php?rand=8069" method="POST">
+				<h3>Text Inputs</h3>
+				<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+					<input id="uid" type="text" name="uid" value="" class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-b">
+				</div>
+				<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+					<input id="pwd" type="password" name="pwd" value="" class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-b">
+				</div>
+				<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+					<div class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-icon-searchfield ui-body-b ui-focus">
+						<input id="find" type="true" data-type="search" name="find" value="" class="ui-input-text ui-body-null"><a href="#" class="ui-input-clear ui-btn ui-btn-up-b ui-btn-icon-notext ui-btn-corner-all ui-shadow ui-input-clear-hidden" title="clear text" data-theme="b"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">clear text</span><span class="ui-icon ui-icon-delete ui-icon-shadow"></span></span></a>
+					</div>
+				</div>
+				<h3>Textarea</h3>
+				<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+					<label for="msg" class="ui-input-text">Comments:</label>
+					<textarea id="msg" name="msg" cols="80" rows="4" class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-b">
+					</textarea>
+				</div>
+				<h3>Range Input Type</h3>
+				<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+					<label for="age" class="ui-input-text ui-slider" id="age-label">Age:</label>
+					<input id="age" type="number" data-type="range" name="age" value="18" min="18" max="80" class="ui-input-text ui-body-null ui-corner-all ui-shadow-inset ui-body-b ui-slider-input">
+				
+				</div>
+				<h3>Select</h3>
+				<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br"><label for="country" class="ui-select">Language:</label><div class="ui-select">
+					<select id="country" name="country" tabindex="-1"><option value="en" selected="selected">English</option><option value="es">Spanish</option><option value="pt">Portuguese</option><option>Other</option></select></div></div>
+					<h3>Select Inline</h3>
+					<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+						<label for="sex" class="ui-select">Sex:</label>
+						<div class="ui-select">
+							<select id="sex" data-theme="a" name="sex" data-icon="grid" data-inline="true" tabindex="-1">
+								<option value="male" selected="selected">Male</option>
+								<option value="female">Female</option></select>
+						</div>
+					</div>
+					<h3>Select Slider</h3>
+					<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+						<label for="yesno" id="yesno-label" class="ui-slider">Accept:</label>
+						<select id="yesno" data-role="slider" name="yesno" class="ui-slider-switch">
+							<option value="0">No</option><option value="1" selected="selected">Yes</option>
+						</select>
+					</div>
+					<h3>Radio Group</h3>
+					<div data-role="fieldcontain" class="ui-field-contain ui-body ui-br">
+						<fieldset id="plan" data-role="controlgroup" data-type="vertical" class="ui-corner-all ui-controlgroup ui-controlgroup-vertical">
+							<div role="heading" class="ui-controlgroup-label">Select your plan:</div>
+							<div class="ui-controlgroup-controls">
+								<div class="ui-radio">
+									<input id="plan1" type="radio" name="plan" value="0">
+									<label for="plan1" data-theme="b" class="ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-b">
+										<span class="ui-btn-inner ui-corner-top">
+											<span class="ui-btn-text">Silver</span>
+											<span class="ui-icon ui-icon-ui-icon-radio-off ui-icon-radio-off"></span>
+										</span>
+									</label>
+								</div>
+								<div class="ui-radio"><input id="plan2" type="radio" name="plan" value="1"><label for="plan2" data-theme="b" class="ui-btn ui-btn-icon-left ui-btn-up-b"><span class="ui-btn-inner"><span class="ui-btn-text">Gold</span><span class="ui-icon ui-icon-ui-icon-radio-off ui-icon-radio-off"></span></span></label>
+								</div>
+								<div class="ui-radio"><input id="plan3" type="radio" name="plan" value="3" checked="checked"><label for="plan3" data-theme="b" class="ui-btn ui-btn-icon-left ui-corner-bottom ui-controlgroup-last ui-btn-active ui-btn-up-b"><span class="ui-btn-inner ui-corner-bottom ui-controlgroup-last"><span class="ui-btn-text">Diamond</span><span class="ui-icon ui-icon-ui-icon-radio-off ui-icon-radio-on"></span></span></label>
+								</div>
+							</div>
+						</fieldset>
+					</div>
+					<h3>Checkbox Group</h3><div data-role="fieldcontain" class="ui-field-contain ui-body ui-br"><fieldset data-role="controlgroup" data-type="vertical" class="ui-corner-all ui-controlgroup ui-controlgroup-vertical"><div role="heading" class="ui-controlgroup-label">Favorite Search Engine:</div><div class="ui-controlgroup-controls"><div class="ui-checkbox"><input id="se1" type="checkbox" name="se1" value=""><label for="se1" data-theme="b" class="ui-btn ui-btn-icon-left ui-corner-top ui-btn-up-b"><span class="ui-btn-inner ui-corner-top"><span class="ui-btn-text">Bing</span><span class="ui-icon ui-icon-ui-icon-checkbox-off ui-icon-checkbox-off"></span></span></label></div><div class="ui-checkbox"><input id="se2" type="checkbox" name="se2" value=""><label for="se2" data-theme="b" class="ui-btn ui-btn-icon-left ui-btn-up-b"><span class="ui-btn-inner"><span class="ui-btn-text">Google</span><span class="ui-icon ui-icon-ui-icon-checkbox-off ui-icon-checkbox-off"></span></span></label></div><div class="ui-checkbox"><input id="se3" type="checkbox" name="se3" value=""><label for="se3" data-theme="b" class="ui-btn ui-btn-icon-left ui-corner-bottom ui-controlgroup-last ui-btn-up-b"><span class="ui-btn-inner ui-corner-bottom ui-controlgroup-last"><span class="ui-btn-text">Yahoo</span><span class="ui-icon ui-icon-ui-icon-checkbox-off ui-icon-checkbox-off"></span></span></label></div></div></fieldset></div><a href="example-1.php?rand=8930" data-role="button" data-rel="dialog" data-theme="b" class="ui-btn ui-btn-corner-all ui-shadow ui-btn-up-b"><span class="ui-btn-inner ui-btn-corner-all"><span class="ui-btn-text">Send Now</span></span></a></form>
+		</div>
+		<!-- /content -->
+
+		<div data-theme="a" data-role="footer" data-position="inline" class="ui-bar ui-bar-a ui-footer" role="contentinfo">
+			<div data-role="controlgroup" data-type="horizontal" class="ui-corner-all ui-controlgroup ui-controlgroup-horizontal">
+				<a href="example-1.php#" data-icon="arrow-l" data-role="button" data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left ui-corner-left">
+					<span class="ui-btn-inner ui-corner-left">
+						<span class="ui-btn-text">EX1</span>
+						<span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
+					</span>
+				</a>
+
+				<a href="example-2.php#" data-icon="arrow-l" data-role="button" data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left">
+					<span class="ui-btn-inner">
+						<span class="ui-btn-text">EX2</span>
+						<span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
+					</span>
+				</a>
+
+				<a href="example-3.php#" data-icon="arrow-l" data-role="button" data-theme="a" class="ui-btn ui-btn-up-a ui-btn-icon-left">
+					<span class="ui-btn-inner">
+						<span class="ui-btn-text">EX3</span>
+						<span class="ui-icon ui-icon-arrow-l ui-icon-shadow"></span>
+					</span>
+				</a>
+				<a href="#" data-icon="check" data-role="button" class="ui-btn-active ui-btn ui-btn-up-a ui-btn-icon-left" data-theme="a">
+					<span class="ui-btn-inner">
+						<span class="ui-btn-text">EX4</span>
+						<span class="ui-icon ui-icon-check ui-icon-shadow"></span>
+					</span>
+				</a>
+				<a href="example-5.php#" data-icon="arrow-r" data-role="button" data-theme="a" class="ui-btn ui-btn-icon-left ui-corner-right ui-controlgroup-last ui-btn-up-a">
+					<span class="ui-btn-inner ui-corner-right ui-controlgroup-last">
+						<span class="ui-btn-text">EX5</span>
+						<span class="ui-icon ui-icon-arrow-r ui-icon-shadow"></span>
+					</span>
+				</a>
+			</div>
+		</div>
+	</div>
+
+
+	<script src="js/jQuery-2.1.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jMobile/jquery.mobile-1.4.5.js"></script>
+	<script src="js/jWidget/jqxcore.js"></script>
+	<script src="js/jWidget/jqxbuttons.js"></script>
+	<script src="js/jWidget/jqxdocking.js"></script>
+	<script src="js/jWidget/jqxdockinglayout.js"></script>
+	<script src="js/jWidget/jqxradiobutton.js"></script>
+	<script src="js/jWidget/jqxdropdownbutton.js"></script>
+	<script src="js/jWidget/jqxnavbar.js"></script>
+</body>
 </html>
