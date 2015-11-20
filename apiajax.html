@@ -1,0 +1,82 @@
+
+$this->registerJs('FusionCharts.ready(function () 
+{
+            var  jsonData1= 
+            $.ajax
+            {
+              //url: "http://api.lukisongroup.int/chart/pilotps?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa",
+              url: "http://api.lukisongroup.com/chart/pilotps?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa",
+              type: "GET",
+              dataType:"json",
+              data:"id_user='. Yii::$app->user->identity->id.'&pilih=0", /*[0=Dept,1=user]*/
+              async: false
+            }).responseText;          
+              var myData1 = jsonData1;
+              
+            var chart1 = new FusionCharts({
+                type: "gantt",
+                renderAt: "chart1-container",
+                width: "100%",
+                height: "830",
+                dataFormat: "json",
+                dataSource: myData1
+            })
+            
+            .render();
+        });
+    ',$this:OS_READY);
+
+
+ANGULAR
+$scope.dapatkanChartsss = function(){ 
+        $http({
+                url: "http://localhost/api/api/web/sss/charts",
+                method: "GET",
+                //params: {id=1}
+                //headers: { 'access-token': 'azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa' }
+                //params: {access-token:azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa}
+            }
+        ).success(function(data){ 
+        
+            
+
+            //$scope.semuaChartsss =data.chartsss;
+            var objAllrow = data.chartsss;                                                  //get All row   --ptr.nov--
+            var objOnerow = [objAllrow[16]];                                               //get row value --ptr.nov--
+            var objOnerowcolumn = JSON.parse([objAllrow[16].Val_Json])[0];                               //get row value --ptr.nov--
+            var objOnerowcolumn_jsondataclm = JSON.parse([objAllrow[16].Val_Json]);       //get row value --ptr.nov--
+            var objOnerowcolumn_jsondataclm_Onerow = [(JSON.parse([objAllrow[7].Val_Json]))[1]];       //get row value --ptr.nov--
+            
+            //api data with Serialz  object
+            $scope.semuaChartsss  =objOnerow;
+            $scope.semuaChartsss1 =objOnerowcolumn;
+            $scope.semuaChartsss2 =objOnerowcolumn_jsondataclm;
+            $scope.semuaChartsss3 =objOnerowcolumn_jsondataclm_Onerow;
+            
+            /*
+            //Non api data with Serialz  object
+            $scope.semuaChartsss  = data; 
+            $scope.semuaChartsss1 = [data[7].Val_Json];
+            $scope.semuaChartsss2 =  JSON.parse([data[7].Val_Json]);
+            $scope.semuaChartsss3 = [(JSON.parse([data[7].Val_Json]))[1]];
+            */
+            
+            //var obj = jQuery.parseJSON(data);
+                      //  alert(angular.isArray(obj));            
+                    //console.log(obj.province);
+                    //$.each( data, function(index) {            
+                            //alert( data[index].Val_Nm);
+                       // alert(data[index].Val_Nm);
+                  //});
+                //  $.each( data.Vaj_Json, function(index) {            
+                            //alert( data[index].Val_Nm);
+                    //    alert(data.Vaj_Json[index]);
+                  //});
+                  //alert( data[0].Val_Nm);
+                  // $filter('json')(obj, spacing);
+            //angular.forEach($scope.chartsss.Val_Json, function(value, key){
+            //     if(value.Password == "thomasTheKing")
+            ////       console.log("username is thomas");
+            //     });
+            }); 
+        };

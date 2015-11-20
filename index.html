@@ -34,9 +34,9 @@
     <div class="login-box-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="salesman/index.html" method="post">
+      <form>
         <div class="form-group has-feedback">
-          <input type="email" class="form-control" placeholder="Email" required="required">
+          <input type="text" class="form-control" id="username" name="username" placeholder="Email" required="required">
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
@@ -52,13 +52,16 @@
             </div>
           </div>
           <!-- /.col -->
-          <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
-          </div>
+          
           <!-- /.col -->
         </div>
       </form>
-
+      <div class="col-xs-4">
+        <button id="login" type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+      </div>
+      <div id="result" class="col-xs-4">
+        
+      </div>
       <!--
       <div class="social-auth-links text-center">
         <p>- OR -</p>
@@ -79,18 +82,43 @@
 
 <!-- jQuery 2.1.4 -->
 <script src="admin/plugins/jQuery/jQuery-2.1.3.min.js"></script>
+<script src="admin/plugins/jQuery/jQuery-2.1.3.min.js"></script>
 <!-- Bootstrap 3.3.5 -->
-<script src="admin/bootstrap/js/bootstrap.min.js"></script>
+<script src="js/angular/angular.js"></script>
 <!-- iCheck -->
 <script src="admin/plugins/iCheck/icheck.min.js"></script>
+
 <script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
+
+
+  $("#login").click(function()
+    {
+        var username = $("#username").val();
+        var passowr  = $("#password").val();
+        alert(username);
+        var url = "http://api.lukisongroup.com/login/users";
+        $.ajax( 
+          {
+                type:'GET',
+                data:"username=" + username,
+                url:url,
+                dataType:"json",
+                success:function(response) 
+                {
+                  alert("Sukses");
+                },
+
+                error: function(e)
+                {
+                    alert("Tidak Berhasil");
+                }
+         });
+
     });
-  });
-</script>
+  </script>
+
+
+
+
 </body>
 </html>
