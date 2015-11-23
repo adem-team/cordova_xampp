@@ -40,7 +40,7 @@
           <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="Password" required="required">
+          <input type="password" id="password" class="form-control" placeholder="Password" required="required">
           <span class="glyphicon glyphicon-lock form-control-feedback"></span>
         </div>
         <div class="row">
@@ -93,10 +93,11 @@
 
   $("#login").click(function()
     {
-        var username = $("#username").val();
-        var passowr  = $("#password").val();
-        alert(username);
-        var url = "http://api.lukisongroup.com/login/users";
+        var username  = $("#username").val();
+        var password  = $("#password").val();
+        
+        var url = "http://api.lukisongroup.com/login/users?username="+ username;
+        alert(url);
         $.ajax( 
           {
                 type:'GET',
@@ -105,7 +106,80 @@
                 dataType:"json",
                 success:function(response) 
                 {
-                  alert("Sukses");
+                  var rusername = response.uservalidation.username;
+                  var rid = response.uservalidation.id;
+                  var rtoken = response.uservalidation.token;
+                  var rstatus = response.uservalidation.status;
+                  var rsite = response.uservalidation.side;
+
+                  if(username != rusername)
+                  {
+                    alert("Username Tidak Ditemukan");
+                  }
+                  else
+                  {
+                    var url ="http://api.lukisongroup.com/login/passwords"
+                    $.ajax(
+                        {
+                            type:'GET',
+                            data:{id:rid,token:rtoken,password:password},
+                            url:url,
+                            dataType:"json",
+                            success:function(response)
+                            {
+                              
+                              var rlogin = response.passwordvalidation.login;
+                              if(rlogin == "true")
+                              {
+
+                                var rruleid = response.passwordvalidation.rule_id;
+                                
+                                alert("Test Login Sukses");
+                                if(rruleid == "1")
+                                {
+                                  alert("Anda Login Sebagai Salesman");
+                                  window.location.href = "http://localhost/radumta_folder/android_layout/cobaangular/index.html#/salesman";
+                                }
+                                if(rruleid == "2")
+                                {
+                                  alert("Anda Login Sebagai Sales_Promotion_Girl");
+                                  window.location.href = "http://localhost/radumta_folder/android_layout/cobaangular/index.html#/spg";
+                                }
+                                if(rruleid == "3")
+                                {
+                                  alert("Anda Login Sebagai Customer");
+                                  window.location.href = "http://localhost/radumta_folder/android_layout/cobaangular/index.html#/salesman/home.html";
+                                }
+                                if(rruleid == "4")
+                                {
+                                  alert("Anda Login Sebagai Distributor");
+                                  window.location.href = "http://localhost/radumta_folder/android_layout/cobaangular/index.html#/salesman/home.html";
+                                }
+                                if(rruleid == "5")
+                                {
+                                  alert("Anda Login Sebagai Factory_Pabrik");
+                                  window.location.href = "http://localhost/radumta_folder/android_layout/cobaangular/index.html#/salesman/home.html";
+                                }
+                                if(rruleid == "6")
+                                {
+                                  alert("Anda Login Sebagai Outsource");
+                                  window.location.href = "http://localhost/radumta_folder/android_layout/cobaangular/index.html#/salesman/home.html";
+                                }
+                              }
+                              else
+                              {
+                                alert("Cek Username Atau Password Anda");
+                              }
+
+       
+                            },
+                            
+                            error: function(e)
+                            {
+                                alert("Call Api Tidak Berhasil");
+                            }
+                        });
+                  }
                 },
 
                 error: function(e)
