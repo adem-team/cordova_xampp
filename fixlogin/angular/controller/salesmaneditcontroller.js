@@ -1,6 +1,7 @@
 'use strict';
-myAppModule.controller("SalesmanEditController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", function ($scope, $location, $http, $routeParams, authService, auth) 
+myAppModule.controller("SalesmanEditController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
 {
+    $scope.loading = true ;
     $scope.userInfo = auth;
     $scope.idbarangumum = $routeParams.idbarangumum;
     $http.get('http://api.lukisongroup.com/master/barangumums/'+ $scope.idbarangumum + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
@@ -23,6 +24,7 @@ myAppModule.controller("SalesmanEditController", ["$scope", "$location","$http",
         $scope.ebukdcab = data.KD_CAB ;
         $scope.ebukddep = data.KD_DEP ;
         $scope.ebustatus = data.STATUS ;
+        $scope.loading = false ;
 
     })
 
@@ -41,6 +43,7 @@ myAppModule.controller("SalesmanEditController", ["$scope", "$location","$http",
         $scope.eknote = data.NOTE;
         $scope.ekstatus = data.STATUS;
         $scope.ekcorpid = data.CORP_ID;
+        $scope.loading = false ;
 
     })
 
@@ -59,6 +62,7 @@ myAppModule.controller("SalesmanEditController", ["$scope", "$location","$http",
         $scope.etbnote = data.NOTE ;
         $scope.etbstatus = data.STATUS ;
         $scope.etbcorpid = data.CORP_ID ;
+        $scope.loading = false ;
     })
 
     .error(function (data, status, header, config) 
@@ -87,6 +91,7 @@ myAppModule.controller("SalesmanEditController", ["$scope", "$location","$http",
         $scope.esupkdcab = data.KD_CAB;
         $scope.esupkddep = data.KD_DEP;
         $scope.esupstatus = data.STATUS;
+        $scope.loading = false ;
 
     })
 
@@ -94,6 +99,14 @@ myAppModule.controller("SalesmanEditController", ["$scope", "$location","$http",
     {
             
     });
-    
+
+    $scope.logout = function () 
+    {
+        
+        $scope.userInfo = null;
+        $window.sessionStorage.clear();
+        window.location.href = "index.html";
+
+    }
 }]);
 

@@ -1,17 +1,22 @@
 'use strict';
-myAppModule.controller("SalesmanController", ["$scope", "$location","$http", "authService", "auth", function ($scope, $location, $http, authService, auth) 
+myAppModule.controller("SalesmanController", ["$scope", "$location","$http", "authService", "auth","$window", function ($scope, $location, $http, authService, auth,$window) 
 {
+    
+
+    $scope.loading = true ;
     $scope.userInfo = auth;
     $http.get('http://api.lukisongroup.com/master/barangumums?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
     .success(function(data,status, headers, config) 
     {
         $scope.barangumums = data.BarangUmum ;
+        $scope.loading = false ;
     })
 
     .error(function (data, status, header, config) 
     {
             
     });
+
 
     $http.get('http://api.lukisongroup.com/master/kategoris?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
     .success(function(data,status, headers, config) 
@@ -28,6 +33,7 @@ myAppModule.controller("SalesmanController", ["$scope", "$location","$http", "au
     .success(function(data,status, headers, config) 
     {
         $scope.typebarangs = data.Tipebarang ;
+
     })
 
     .error(function (data, status, header, config) 
@@ -39,12 +45,23 @@ myAppModule.controller("SalesmanController", ["$scope", "$location","$http", "au
     .success(function(data,status, headers, config) 
     {
         $scope.supliers = data.Suplier ;
+
     })
 
     .error(function (data, status, header, config) 
     {
             
     });
+
+
+    $scope.logout = function () 
+    {
+        
+        $scope.userInfo = null;
+        $window.sessionStorage.clear();
+        window.location.href = "index.html";
+
+    }
     
 }]);
 
