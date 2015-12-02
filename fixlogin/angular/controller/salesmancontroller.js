@@ -2,7 +2,7 @@
 myAppModule.controller("SalesmanController", ["$scope", "$location","$http", "authService", "auth","$window", function ($scope, $location, $http, authService, auth,$window) 
 {
     
-
+    $scope.isCollapsed = false;
     $scope.loading = true ;
     $scope.userInfo = auth;
     $http.get('http://api.lukisongroup.com/master/barangumums?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
