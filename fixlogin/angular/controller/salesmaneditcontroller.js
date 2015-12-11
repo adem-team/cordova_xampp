@@ -24,13 +24,17 @@ myAppModule.controller("EditBarangUmumController", ["$scope", "$location","$http
         $scope.ebukdcab = data.KD_CAB ;
         $scope.ebukddep = data.KD_DEP ;
         $scope.ebustatus = data.STATUS ;
-        $scope.loading = false ;
-
+        
     })
 
     .error(function (data, status, header, config) 
     {
             
+    }).
+
+    finally(function()
+    {
+        $scope.loading = false ;
     });
     
     $scope.logout = function () 
@@ -57,14 +61,19 @@ myAppModule.controller("EditKategoriController", ["$scope", "$location","$http",
         $scope.eknote = data.NOTE;
         $scope.ekstatus = data.STATUS;
         $scope.ekcorpid = data.CORP_ID;
-        $scope.loading = false ;
 
     })
 
     .error(function (data, status, header, config) 
     {
             
+    })
+
+    .finally(function()
+    {
+        $scope.loading = false ;
     });
+
     $scope.logout = function () 
     {
         
@@ -89,12 +98,16 @@ myAppModule.controller("EditTipeBarangController", ["$scope", "$location","$http
         $scope.etbnote = data.NOTE ;
         $scope.etbstatus = data.STATUS ;
         $scope.etbcorpid = data.CORP_ID ;
-        $scope.loading = false ;
     })
 
     .error(function (data, status, header, config) 
     {
             
+    })
+
+    .finally(function()
+    {
+        $scope.loading = false ;
     });
 
     $scope.logout = function () 
@@ -131,13 +144,56 @@ myAppModule.controller("EditSuplierController", ["$scope", "$location","$http", 
         $scope.esupkdcab = data.KD_CAB;
         $scope.esupkddep = data.KD_DEP;
         $scope.esupstatus = data.STATUS;
-        $scope.loading = false ;
 
     })
 
     .error(function (data, status, header, config) 
     {
             
+    })
+
+    .finally(function()
+    {
+        $scope.loading = false ;
+    });
+
+    $scope.logout = function () 
+    {
+        
+        $scope.userInfo = null;
+        $window.sessionStorage.clear();
+        window.location.href = "index.html";
+
+    }
+}]);
+
+myAppModule.controller("EditBarangUnitController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
+{
+    $scope.loading = true ;
+    $scope.userInfo = auth;
+    $scope.idbarangunit = $routeParams.idbarangunit;
+    $http.get('http://api.lukisongroup.com/master/unitbarangs/'+ $scope.idbarangunit + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
+    .success(function(data,status, headers, config) 
+    {
+        $scope.buid = data.ID;
+        $scope.bukdunit = data.KD_UNIT;
+        $scope.bunmunit = data.NM_UNIT;
+        $scope.buqty = data.QTY;
+        $scope.busize = data.SIZE;
+        $scope.buweight = data.WEIGHT;
+        $scope.bucolor = data.COLOR;
+        $scope.bunote = data.NOTE;
+        $scope.bustatus = data.STATUS;
+    })
+
+    .error(function (data, status, header, config) 
+    {
+        alert("Data tidak berhasil diterima");    
+    })
+
+    .finally(function()
+    {
+        $scope.loading = false ;
     });
 
     $scope.logout = function () 
