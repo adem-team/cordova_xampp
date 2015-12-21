@@ -25,26 +25,26 @@ myAppModule.controller("NewKategoriController", ["$scope", "$location","$http", 
     }    
 }]);
 
-myAppModule.controller("ListKategoriController", ["$scope", "$location","$http", "authService", "auth","$window", function ($scope, $location, $http, authService, auth,$window) 
+myAppModule.controller("ListKategoriController", ["$scope", "$location","$http", "authService", "auth","$window","apiService", function ($scope, $location, $http, authService, auth,$window,apiService) 
 {
 
     $scope.loading  = true;
     $scope.userInfo = auth;
-    $http.get('http://api.lukisongroup.com/master/kategoris?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
+    apiService.listkategori()
+    .then(function (result) 
     {
-        $scope.categories = data.Kategori ;
-
-    })
-
-    .error(function (data, status, header, config) 
-    {
-            
-    })
-
-    .finally(function(){
-        $scope.loading = false;
+        $scope.categories = result.Kategori;
+        console.log($scope.categories);
+        $scope.loading  = false;
+       
+    }, 
+    function (error) 
+    {          
+        $window.alert("Invalid credentials");
+        
     });
+
+    
 
     $scope.deletekategori = function(category)
     {
@@ -52,7 +52,7 @@ myAppModule.controller("ListKategoriController", ["$scope", "$location","$http",
        var nama = category.NM_KATEGORI;
         if(confirm("Apakah Anda Yakin Menghapus Kategori:" + nama))
         {
-            $location.path('/salesman/delete/kategori/'+ id)
+            $location.path('/erp/masterbarang/delete/kategori/'+ id)
         }   
     }
 
@@ -64,31 +64,25 @@ myAppModule.controller("ListKategoriController", ["$scope", "$location","$http",
     }
 }]);
 
-myAppModule.controller("DetailKategoriController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
+myAppModule.controller("DetailKategoriController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window","singleapiService", function ($scope, $location, $http, $routeParams, authService, auth, $window,singleapiService) 
 {
     $scope.loading = true ;
     $scope.userInfo = auth;
-    $scope.idkategori = $routeParams.idkategori;
-    $http.get('http://api.lukisongroup.com/master/kategoris/'+ $scope.idkategori + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
+    var idkategori = $routeParams.idkategori;
+    singleapiService.singlelistkategori(idkategori)
+    .then(function(result)
     {
-        $scope.ekid = data.ID ;
-        $scope.ekkdkategori = data.KD_KATEGORI;
-        $scope.eknamakategori = data.NM_KATEGORI;
-        $scope.eknote = data.NOTE;
-        $scope.ekstatus = data.STATUS;
-        $scope.ekcorpid = data.CORP_ID;
-
-    })
-
-    .error(function (data, status, header, config) 
+        $scope.ekid = result.ID ;
+        $scope.ekkdkategori = result.KD_KATEGORI;
+        $scope.eknamakategori = result.NM_KATEGORI;
+        $scope.eknote = result.NOTE;
+        $scope.ekstatus = result.STATUS;
+        $scope.ekcorpid = result.CORP_ID;
+        $scope.loading = false;
+    },
+    function(error)
     {
-            
-    })
 
-    .finally(function()
-    {
-        $scope.loading = false ;
     });
 
     $scope.logout = function () 
@@ -101,31 +95,25 @@ myAppModule.controller("DetailKategoriController", ["$scope", "$location","$http
     }
 }]);
 
-myAppModule.controller("EditKategoriController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
+myAppModule.controller("EditKategoriController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window","singleapiService", function ($scope, $location, $http, $routeParams, authService, auth, $window,singleapiService) 
 {
     $scope.loading = true ;
     $scope.userInfo = auth;
-    $scope.idkategori = $routeParams.idkategori;
-    $http.get('http://api.lukisongroup.com/master/kategoris/'+ $scope.idkategori + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
+    var idkategori = $routeParams.idkategori;
+    singleapiService.singlelistkategori(idkategori)
+    .then(function(result)
     {
-        $scope.ekid = data.ID ;
-        $scope.ekkdkategori = data.KD_KATEGORI;
-        $scope.eknamakategori = data.NM_KATEGORI;
-        $scope.eknote = data.NOTE;
-        $scope.ekstatus = data.STATUS;
-        $scope.ekcorpid = data.CORP_ID;
-
-    })
-
-    .error(function (data, status, header, config) 
+        $scope.ekid = result.ID ;
+        $scope.ekkdkategori = result.KD_KATEGORI;
+        $scope.eknamakategori = result.NM_KATEGORI;
+        $scope.eknote = result.NOTE;
+        $scope.ekstatus = result.STATUS;
+        $scope.ekcorpid = result.CORP_ID;
+        $scope.loading = false;
+    },
+    function(error)
     {
-            
-    })
 
-    .finally(function()
-    {
-        $scope.loading = false ;
     });
 
     $scope.logout = function () 
@@ -140,37 +128,5 @@ myAppModule.controller("EditKategoriController", ["$scope", "$location","$http",
 
 myAppModule.controller("DeleteKategoriController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
 {
-    $scope.loading = true ;
-    $scope.userInfo = auth;
-    $scope.idkategori = $routeParams.idkategori;
-    $http.get('http://api.lukisongroup.com/master/kategoris/'+ $scope.idkategori + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
-    {
-        $scope.ekid = data.ID ;
-        $scope.ekkdkategori = data.KD_KATEGORI;
-        $scope.eknamakategori = data.NM_KATEGORI;
-        $scope.eknote = data.NOTE;
-        $scope.ekstatus = data.STATUS;
-        $scope.ekcorpid = data.CORP_ID;
-
-    })
-
-    .error(function (data, status, header, config) 
-    {
-            
-    })
-
-    .finally(function()
-    {
-        $scope.loading = false ;
-    });
-
-    $scope.logout = function () 
-    {
-        
-        $scope.userInfo = null;
-        $window.sessionStorage.clear();
-        window.location.href = "index.html";
-
-    }
+    $location.path("/erp/masterbarang/list/kategori");
 }]);

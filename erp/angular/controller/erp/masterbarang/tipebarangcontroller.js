@@ -50,24 +50,23 @@ myAppModule.controller("NewTipeBarangController", ["$scope", "$location","$http"
     }  
 }]);
 
-myAppModule.controller("ListTipeBarangController", ["$scope", "$location","$http", "authService", "auth","$window", function ($scope, $location, $http, authService, auth,$window) 
+myAppModule.controller("ListTipeBarangController", ["$scope", "$location","$http", "authService", "auth","$window","apiService", 
+function ($scope, $location, $http, authService, auth,$window,apiService) 
 {
 
     $scope.loading  = true;
     $scope.userInfo = auth;
-    $http.get('http://api.lukisongroup.com/master/tipebarangs?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
+    apiService.listtipebarang()
+    .then(function (result) 
     {
-        $scope.typebarangs = data.Tipebarang ;
-    })
-
-    .error(function (data, status, header, config) 
-    {
-            
-    })
-
-    .finally(function(){
+        $scope.typebarangs = result.Tipebarang;
         $scope.loading = false;
+        console.log($scope.typebarangs);
+       
+    }, 
+    function (error) 
+    {          
+        $window.alert("Invalid credentials");    
     });
 
     $scope.deletetipebarang = function(typebarang)
@@ -76,7 +75,7 @@ myAppModule.controller("ListTipeBarangController", ["$scope", "$location","$http
        var nama = typebarang.NM_TYPE;
         if(confirm("Apakah Anda Yakin Menghapus Type Barang:" + nama))
         {
-            $location.path('/salesman/delete/tipebarang/'+ id)
+            $location.path('/erp/masterbarang/delete/tipebarang/'+ id)
         }   
     }
 
@@ -88,13 +87,14 @@ myAppModule.controller("ListTipeBarangController", ["$scope", "$location","$http
     }
 }]);
 
-myAppModule.controller("DetailTipeBarangController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
+myAppModule.controller("DetailTipeBarangController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window","singleapiService",
+function ($scope, $location, $http, $routeParams, authService, auth, $window,singleapiService) 
 {
     $scope.loading = true ;
     $scope.userInfo = auth;
-    $scope.idtipebarang = $routeParams.idtipebarang;
-    $http.get('http://api.lukisongroup.com/master/tipebarangs/'+ $scope.idtipebarang + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
+    var idtipebarang = $routeParams.idtipebarang;
+    singleapiService.singlelisttipebarang(idtipebarang)
+    .then(function(data)
     {
         $scope.etbid = data.ID ;
         $scope.etbkdtype = data.KD_TYPE ;
@@ -102,35 +102,31 @@ myAppModule.controller("DetailTipeBarangController", ["$scope", "$location","$ht
         $scope.etbnote = data.NOTE ;
         $scope.etbstatus = data.STATUS ;
         $scope.etbcorpid = data.CORP_ID ;
-    })
 
-    .error(function (data, status, header, config) 
+        $scope.loading = false;
+    },
+    function(error)
     {
-            
-    })
 
-    .finally(function()
-    {
-        $scope.loading = false ;
     });
 
+
     $scope.logout = function () 
-    {
-        
+    {   
         $scope.userInfo = null;
         $window.sessionStorage.clear();
         window.location.href = "index.html";
-
     }
 }]);
 
-myAppModule.controller("EditTipeBarangController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
+myAppModule.controller("EditTipeBarangController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window","singleapiService",
+function ($scope, $location, $http, $routeParams, authService, auth, $window,singleapiService) 
 {
     $scope.loading = true ;
     $scope.userInfo = auth;
-    $scope.idtipebarang = $routeParams.idtipebarang;
-    $http.get('http://api.lukisongroup.com/master/tipebarangs/'+ $scope.idtipebarang + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
+    var idtipebarang = $routeParams.idtipebarang;
+    singleapiService.singlelisttipebarang(idtipebarang)
+    .then(function(data)
     {
         $scope.etbid = data.ID ;
         $scope.etbkdtype = data.KD_TYPE ;
@@ -138,17 +134,14 @@ myAppModule.controller("EditTipeBarangController", ["$scope", "$location","$http
         $scope.etbnote = data.NOTE ;
         $scope.etbstatus = data.STATUS ;
         $scope.etbcorpid = data.CORP_ID ;
-    })
 
-    .error(function (data, status, header, config) 
+        $scope.loading = false;
+    },
+    function(error)
     {
-            
-    })
 
-    .finally(function()
-    {
-        $scope.loading = false ;
     });
+
 
     $scope.logout = function () 
     {
@@ -162,36 +155,5 @@ myAppModule.controller("EditTipeBarangController", ["$scope", "$location","$http
 
 myAppModule.controller("DeleteTipeBarangController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
 {
-    $scope.loading = true ;
-    $scope.userInfo = auth;
-    $scope.idtipebarang = $routeParams.idtipebarang;
-    $http.get('http://api.lukisongroup.com/master/tipebarangs/'+ $scope.idtipebarang + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
-    {
-        $scope.etbid = data.ID ;
-        $scope.etbkdtype = data.KD_TYPE ;
-        $scope.etbnamatype = data.NM_TYPE ;
-        $scope.etbnote = data.NOTE ;
-        $scope.etbstatus = data.STATUS ;
-        $scope.etbcorpid = data.CORP_ID ;
-    })
-
-    .error(function (data, status, header, config) 
-    {
-            
-    })
-
-    .finally(function()
-    {
-        $scope.loading = false ;
-    });
-
-    $scope.logout = function () 
-    {
-        
-        $scope.userInfo = null;
-        $window.sessionStorage.clear();
-        window.location.href = "index.html";
-
-    }
+    $location.path("/erp/masterbarang/list/tipebarang")
 }]);

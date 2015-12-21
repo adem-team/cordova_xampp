@@ -48,24 +48,24 @@ myAppModule.controller("NewBarangUnitController", ["$scope", "$location","$http"
         window.location.href = "index.html";
     }    
 }]);
-myAppModule.controller("ListBarangUnitController", ["$scope", "$location","$http", "authService", "auth","$window", function ($scope, $location, $http, authService, auth,$window) 
+
+myAppModule.controller("ListBarangUnitController", ["$scope", "$location","$http", "authService", "auth","$window","apiService", function ($scope, $location, $http, authService, auth,$window,apiService) 
 {
     $scope.loading  = true;
     $scope.userInfo = auth;
-    $http.get('http://api.lukisongroup.com/master/unitbarangs?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
+    apiService.listbarangunit()
+    .then(function (result) 
     {
-        $scope.unitbarangs = data.Unitbarang ;
-    })
-
-    .error(function (data, status, header, config) 
-    {
-            
-    })
-
-    .finally(function(){
+        $scope.unitbarangs = result.Unitbarang;
         $scope.loading = false;
+        console.log($scope.unitbarangs);
+       
+    }, 
+    function (error) 
+    {          
+        $window.alert("Invalid credentials");    
     });
+    
 
     $scope.deletebarangunit = function(unitbarang)
     {
@@ -73,7 +73,7 @@ myAppModule.controller("ListBarangUnitController", ["$scope", "$location","$http
        var nama = unitbarang.NM_UNIT;
         if(confirm("Apakah Anda Yakin Menghapus Unit Barang:" + nama))
         {
-            $location.path('/salesman/delete/barangunit/'+ id)
+            $location.path('/erp/masterbarang/delete/barangunit/'+ id)
         }   
     }
 
@@ -84,13 +84,15 @@ myAppModule.controller("ListBarangUnitController", ["$scope", "$location","$http
         window.location.href = "index.html";
     }
 }]);
-myAppModule.controller("DetailBarangUnitController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
+
+myAppModule.controller("DetailBarangUnitController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window","singleapiService",
+function ($scope, $location, $http, $routeParams, authService, auth, $window,singleapiService) 
 {
     $scope.loading = true ;
     $scope.userInfo = auth;
-    $scope.idbarangunit = $routeParams.idbarangunit;
-    $http.get('http://api.lukisongroup.com/master/unitbarangs/'+ $scope.idbarangunit + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
+    var idbarangunit = $routeParams.idbarangunit;
+    singleapiService.singlelistbarangunit(idbarangunit)
+    .then(function(data)
     {
         $scope.buid = data.ID;
         $scope.bukdunit = data.KD_UNIT;
@@ -101,18 +103,13 @@ myAppModule.controller("DetailBarangUnitController", ["$scope", "$location","$ht
         $scope.bucolor = data.COLOR;
         $scope.bunote = data.NOTE;
         $scope.bustatus = data.STATUS;
-    })
-
-    .error(function (data, status, header, config) 
+        $scope.loading = false;
+    },
+    function(error)
     {
-        alert("Data tidak berhasil diterima");    
-    })
 
-    .finally(function()
-    {
-        $scope.loading = false ;
     });
-
+    
     $scope.logout = function () 
     {
         
@@ -122,13 +119,15 @@ myAppModule.controller("DetailBarangUnitController", ["$scope", "$location","$ht
 
     }
 }]);
-myAppModule.controller("EditBarangUnitController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
+
+myAppModule.controller("EditBarangUnitController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window","singleapiService",
+function ($scope, $location, $http, $routeParams, authService, auth, $window,singleapiService) 
 {
     $scope.loading = true ;
     $scope.userInfo = auth;
-    $scope.idbarangunit = $routeParams.idbarangunit;
-    $http.get('http://api.lukisongroup.com/master/unitbarangs/'+ $scope.idbarangunit + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
+    var idbarangunit = $routeParams.idbarangunit;
+    singleapiService.singlelistbarangunit(idbarangunit)
+    .then(function(data)
     {
         $scope.buid = data.ID;
         $scope.bukdunit = data.KD_UNIT;
@@ -139,62 +138,22 @@ myAppModule.controller("EditBarangUnitController", ["$scope", "$location","$http
         $scope.bucolor = data.COLOR;
         $scope.bunote = data.NOTE;
         $scope.bustatus = data.STATUS;
-    })
-
-    .error(function (data, status, header, config) 
+        $scope.loading = false;
+    },
+    function(error)
     {
-        alert("Data tidak berhasil diterima");    
-    })
 
-    .finally(function()
-    {
-        $scope.loading = false ;
     });
-
+    
     $scope.logout = function () 
     {
-        
         $scope.userInfo = null;
         $window.sessionStorage.clear();
         window.location.href = "index.html";
-
     }
 }]);
+
 myAppModule.controller("DeleteBarangUnitController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window", function ($scope, $location, $http, $routeParams, authService, auth, $window) 
 {
-    $scope.loading = true ;
-    $scope.userInfo = auth;
-    $scope.idbarangunit = $routeParams.idbarangunit;
-    $http.get('http://api.lukisongroup.com/master/unitbarangs/'+ $scope.idbarangunit + '?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa')
-    .success(function(data,status, headers, config) 
-    {
-        $scope.buid = data.ID;
-        $scope.bukdunit = data.KD_UNIT;
-        $scope.bunmunit = data.NM_UNIT;
-        $scope.buqty = data.QTY;
-        $scope.busize = data.SIZE;
-        $scope.buweight = data.WEIGHT;
-        $scope.bucolor = data.COLOR;
-        $scope.bunote = data.NOTE;
-        $scope.bustatus = data.STATUS;
-    })
-
-    .error(function (data, status, header, config) 
-    {
-        alert("Data tidak berhasil diterima");    
-    })
-
-    .finally(function()
-    {
-        $scope.loading = false ;
-    });
-
-    $scope.logout = function () 
-    {
-        
-        $scope.userInfo = null;
-        $window.sessionStorage.clear();
-        window.location.href = "index.html";
-
-    }
+    $location.path('/erp/masterbarang/list/barangunit')
 }]);
