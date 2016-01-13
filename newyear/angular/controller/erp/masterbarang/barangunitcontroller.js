@@ -6,30 +6,48 @@ function ($scope, $location, $http, authService, auth,$window,$filter)
         $scope.buqty = $filter('setDecimal')(buqty,2);
     }
     
-    $scope.submitForm = function(isValid)
+    $scope.submitForm = function()
     {
-        if (isValid) 
-        { 
-            
-            $scope.loading = true;
-            var data = $.param({json: JSON.stringify
-                ({
-                    eknamakategori: $scope.eknamakategori,
-                    eknote: $scope.eknote,
-                    status: $scope.statuskategori
-                })
-            });
+            var config = {
+                headers : {
+                    'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;',
+                    'Accept': 'application/json, text/plain, */*'
+                }
+            };
 
-            $http.post('http://api.lukisongroup.com/master/kategoris?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa',data)
+            var data = 
+                {
+                    KD_UNIT: $scope.kodeunit,
+                    NM_UNIT: $scope.bunmunit,
+                    QTY: $scope.buqty
+                };
+
+            function serializeObj(obj) 
+            {
+              var result = [];
+              for (var property in obj) result.push(encodeURIComponent(property) + "=" + encodeURIComponent(obj[property]));
+              return result.join("&");
+            }
+            var serialized = serializeObj(data); 
+
+            $http.post('http://api.lukisongroup.com/master/unitbarangs?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa',serialized,config)
+
             .success(function(data,status, headers, config) 
             {
+                console.log(data);
+                console.log(status);
+                console.log(header);
+                console.log(config);
                 alert("Berhasil");
 
             })
 
             .error(function (data, status, header, config) 
             {
-                alert("Error");       
+                alert(header);
+                console.log(data);
+                console.log(config);
+                alert(status);       
             })
 
             .finally(function()
@@ -37,14 +55,9 @@ function ($scope, $location, $http, authService, auth,$window,$filter)
                alert("Finally");
                 $scope.loading = false;  
             });
-        }
-        else
-        {
-            alert("form tidak valid");
-        }
-
-
+            console.log(http);
     }
+
     $scope.userInfo = auth;
 
     $scope.logout = function () 
@@ -59,6 +72,7 @@ myAppModule.controller("ListBarangUnitController", ["$scope", "$location","$http
 {
     $scope.loading  = true;
     $scope.userInfo = auth;
+    
     apiService.listbarangunit()
     .then(function (result) 
     {
