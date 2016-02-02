@@ -2,6 +2,7 @@ myAppModule.controller("SalesMapController", ["$scope", "$location","$http", "au
 function ($scope, $location, $http, authService, auth,$window,NgMap,LocationService,apiService) 
 {
     $scope.zoomvalue = 17;
+    $scope.loading  = true;
     LocationService.GetLocation().then(function(data)
     {
         $scope.lat = data.latitude;
@@ -9,12 +10,19 @@ function ($scope, $location, $http, authService, auth,$window,NgMap,LocationServ
         console.log(data);
     });
 
+    apiService.listcustomer()
+    .then(function (result) 
+    {
+        $scope.customers = result.Customer;
+        $scope.loading  = false;
+        console.log($scope.customers);   
+    });
+
     $scope.toggleBounce = function() 
     {
       if (this.getAnimation() != null) 
       {
-        this.setAnimation(null);
-        
+        this.setAnimation(null);    
       } 
       else 
       {
@@ -25,18 +33,25 @@ function ($scope, $location, $http, authService, auth,$window,NgMap,LocationServ
 
 
 
-myAppModule.controller("DetailCustomerController", ["$scope", "$location","$http", "authService", "auth","$window","$routeParams","NgMap","LocationService","$cordovaBarcodeScanner","$cordovaCamera","$cordovaCapture", 
-function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap,LocationService,$cordovaBarcodeScanner,$cordovaCamera,$cordovaCapture) 
+myAppModule.controller("DetailCustomerController", ["$scope", "$location","$http", "authService", "auth","$window","$routeParams","NgMap","LocationService","$cordovaBarcodeScanner","$cordovaCamera","$cordovaCapture","apiService","singleapiService",
+function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap,LocationService,$cordovaBarcodeScanner,$cordovaCamera,$cordovaCapture,apiService,singleapiService) 
 {
+    $scope.loading = true;
     var idcustomer = $routeParams.idcustomer;
     $scope.zoomvalue = 17;
     LocationService.GetLocation().then(function(data)
     {
         $scope.lat = data.latitude;
         $scope.long = data.longitude;
-        console.log(data);
     });
 
+    singleapiService.singlelistcustomer(idcustomer)
+    .then(function (result) 
+    {
+        $scope.customers = result;
+        $scope.loading  = false;  
+    });
+    
     $scope.toggleBounce = function() 
     {
       if (this.getAnimation() != null) 
