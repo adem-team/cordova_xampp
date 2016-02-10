@@ -1,6 +1,16 @@
 'use strict';
 myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $window)
 {
+	var getUrl = function()
+	{
+		return "http://labtest3-api.int/master";
+	}
+
+	var gettoken = function()
+	{
+		return "?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa";
+	}
+	
 	var listbarangumum = function()
 	{
 		var deferred = $q.defer();
@@ -98,7 +108,7 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 	var listcustomer = function()
 	{
 		var deferred = $q.defer();
-		var url = "http://lukison.int/master/customers";
+		var url = "http://labtest3-api.int/master/customers";
 		var method ="GET";
 		$http({method:method, url:url})
         .success(function(response) 
@@ -114,6 +124,67 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
         return deferred.promise;
 	}
 
+	var listdistributor = function()
+	{
+		var deferred = $q.defer();
+		var url = "http://labtest3-api.int/master/distributors";
+		var method ="GET";
+		$http({method:method, url:url})
+        .success(function(response) 
+        {
+		  deferred.resolve(response);
+        })
+
+        .error(function()
+        {
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
+	}
+	var listparentcustomerkategoris = function()
+	{
+		var url = getUrl();
+		
+		var deferred = $q.defer();
+		var url = url + "/customkategoris/search?CUST_KTG_PARENT=0";
+		var method ="GET";
+		$http({method:method, url:url})
+        .success(function(response) 
+        {
+		  deferred.resolve(response);
+        })
+
+        .error(function()
+        {
+            deferred.reject(error);
+            console.log('List Customers Error');
+        });
+
+        return deferred.promise;
+	}
+
+	var listchildcustomerkategoris = function(idparent)
+	{
+		var url = getUrl();
+		
+		var deferred = $q.defer();
+		var url = url + "/customkategoris/search?CUST_KTG_PARENT="+ idparent;
+		var method ="GET";
+		$http({method:method, url:url})
+        .success(function(response) 
+        {
+		  deferred.resolve(response);
+        })
+
+        .error(function()
+        {
+            deferred.reject(error);
+            console.log('List Customers Error');
+        });
+
+        return deferred.promise;
+	}
 
 	return{
 			listbarangumum:listbarangumum,
@@ -121,6 +192,9 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 			listtipebarang:listtipebarang,
 			listsuplier:listsuplier,
 			listbarangunit:listbarangunit,
-			listcustomer:listcustomer
+			listcustomer:listcustomer,
+			listdistributor:listdistributor,
+			listparentcustomerkategoris:listparentcustomerkategoris,
+			listchildcustomerkategoris:listchildcustomerkategoris
 		}
 }]);

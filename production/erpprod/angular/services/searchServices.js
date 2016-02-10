@@ -1,5 +1,5 @@
 'use strict';
-myAppModule.factory('singleapiService', ["$http","$q","$window",function($http, $q, $window)
+myAppModule.factory('searchService', ["$http","$q","$window",function($http, $q, $window)
 {
 	var deferred = $q.defer();
 	var geturl = function()
@@ -12,7 +12,7 @@ myAppModule.factory('singleapiService', ["$http","$q","$window",function($http, 
 		return "?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa";
 	}
 
-	var singlelistbarangumum = function(idbarangumum)
+	var singlelistbarangumum = function(params)
 	{
 		var url = geturl();
 		var idbarangumum = idbarangumum;

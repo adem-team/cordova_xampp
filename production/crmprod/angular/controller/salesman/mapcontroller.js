@@ -49,7 +49,7 @@ function ($scope, $location, $http, authService, auth,$window,NgMap,LocationServ
             }
         };
         
-        $http.put("http://lukison.int/master/customers/" + idcustomer,serialized,config)
+        $http.put("http://labtest3-api.int/master/customers/" + idcustomer,serialized,config)
         .success(function(data,status, headers, config) 
         {
             //$location.path("/mapcustomer");
@@ -157,7 +157,7 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
             }
         };
         
-        $http.put("http://lukison.int/master/customers/" + idcustomer,serialized,config)
+        $http.put("http://labtest3-api.int/master/customers/" + idcustomer,serialized,config)
         .success(function(data,status, headers, config) 
         {
             //$location.path("/mapcustomer");

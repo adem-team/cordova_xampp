@@ -58,6 +58,7 @@ function ($scope, $location, $http, authService, auth,$window,apiService)
     {
         $scope.supliers = result.Suplier;
     });
+    
     apiService.listtipebarang()
     .then(function (result) 
     {

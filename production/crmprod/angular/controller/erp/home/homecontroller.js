@@ -8,6 +8,13 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
         $location.path('/customer');
     }
 
+    apiService.listparentcustomerkategoris()
+    .then(function (result) 
+    {
+        $scope.customerkategoris = result.CustomKategori;
+        $scope.loading  = false;
+    });
+    
     apiService.listcustomer()
     .then(function (result) 
     {
@@ -16,22 +23,49 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
         console.log($scope.customers);   
     });
 
+    apiService.listdistributor()
+    .then(function (result) 
+    {
+        $scope.distributors = result.Distributor;
+        $scope.loading  = false; 
+    });
+
     regionalService.listpropinsi()
     .then(function (result) 
     {
-        $scope.propinsis = result.Propinsi;  
+        $scope.provinsis = result.Provinsi;  
     });
 
-    var kab = regionalService.listkabupaten()
-    .then(function (result) 
-    {
-        $scope.kabupatens = result.Kabupaten; 
-        return result; 
-    });
+    // var kab = regionalService.listkabupaten()
+    // .then(function (result) 
+    // {
+    //     $scope.kabupatens = result.Kabupaten; 
+    //     return result; 
+    // });
 
-    $scope.changeprovinsi=function()
+    $scope.provinsichange=function()
     {
-        
+        $scope.loading = true;
+        $scope.filterprovinsi = $scope.customer.PROVINCE_ID;
+        var idprovinsi = $scope.filterprovinsi;
+        regionalService.singlelistkabupaten(idprovinsi)
+        .then(function (result) 
+        {
+            $scope.showkabupaten = true;
+            $scope.kabupatens = result.Kabupaten;
+            console.log($scope.kabupatens);
+            $scope.loading = false;
+        });
+    }
+
+    $scope.kabupatenchange = function()
+    {
+        $scope.showkodepos = true;
+    }
+
+    $scope.kodeposchange = function()
+    {
+        $scope.showalamat = true;
     }
 
     $scope.viscustomer = function()

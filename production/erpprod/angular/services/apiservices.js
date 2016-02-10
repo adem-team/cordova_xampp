@@ -3,7 +3,7 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 {
 	var geturl = function()
 	{
-		return "http://lukison.int/master";
+		return "http://labtest3-api.int/master";
 	}
 
 	var gettoken = function()
@@ -295,6 +295,7 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 
         return deferred.promise;
 	}
+
 	var listemployee = function()
 	{
 		var url = geturl();
@@ -316,6 +317,7 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 
         return deferred.promise;
 	}
+	
 	return{
 			listbarangumum:listbarangumum,
 			listkategori:listkategori,
