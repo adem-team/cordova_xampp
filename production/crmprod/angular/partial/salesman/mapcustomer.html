@@ -14,7 +14,7 @@
 
             </div>
         </div>
-        <ng-map zoom="2" center="{{lat}},{{long}}" style="height:600px;margin:12px;box-shadow:0 3px 25px black;">
+        <ng-map zoom="17" center="{{lat}},{{long}}">
             <marker position="{{lat}}, {{long}}" on-click="toggleBounce()" animation="BOUNCE" draggable="false"></marker>
 
             <marker ng-repeat="customer in customers" position="{{customer.MAP_LAT}}, {{customer.MAP_LNG}}" on-click="toggleBounce()" animation="BOUNCE" draggable="true" icon='http://google-maps-icons.googlecode.com/files/factory.png' 

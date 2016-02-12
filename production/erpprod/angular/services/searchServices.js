@@ -18,7 +18,7 @@ myAppModule.factory('searchService', ["$http","$q","$window",function($http, $q,
 		var idbarangumum = idbarangumum;
 		var deferred = $q.defer();
 
-		var url = url +"/barangumums/"+ idbarangumum +"?expand=type,kategori,unit";
+		var url = url +"/barangumums/search?="+ idbarangumum +"?expand=type,kategori,unit";
 		var method ="GET";
 		$http({method:method, url:url})
         .success(function(response) 

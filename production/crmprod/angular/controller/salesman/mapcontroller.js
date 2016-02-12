@@ -8,21 +8,18 @@ function ($scope, $location, $http, authService, auth,$window,NgMap,LocationServ
     {
         $scope.lat = data.latitude;
         $scope.long = data.longitude;
-        console.log(data);
     });
 
     apiService.listcustomer()
     .then(function (result) 
     {
         $scope.customers = result.Customer;
-        $scope.loading  = false;
-        console.log($scope.customers);   
+        $scope.loading  = false;  
     });
     //http://stackoverflow.com/questions/5968559/retrieve-latitude-and-longitude-of-a-draggable-pin-via-google-maps-api-v3
     $scope.doSth = function($event,customer)
     {
         var idcustomer = customer.CUST_KD;
-        alert(idcustomer);
         console.log(customer);
         customer.MAP_LNG = this.getPosition().lng();
         customer.MAP_LAT = this.getPosition().lat();
@@ -30,6 +27,7 @@ function ($scope, $location, $http, authService, auth,$window,NgMap,LocationServ
         customer.TLP1 = 081260014478;
         customer.TLP2 = 081260014478;
         customer.FAX  = 081260014478;
+        
         function serializeObj(obj) 
         {
           var result = [];
@@ -53,15 +51,15 @@ function ($scope, $location, $http, authService, auth,$window,NgMap,LocationServ
         .success(function(data,status, headers, config) 
         {
             //$location.path("/mapcustomer");
-            alert("Sukses");
+            alert("Sukses. Data Berhasil Diubah");
 
         })
         .error(function (data, status, header, config) 
         {
-            console.log(data);
-            console.log(status);
-            console.log(header);
-            console.log(config);      
+            // console.log(data);
+            // console.log(status);
+            // console.log(header);
+            // console.log(config);      
         })
 
         .finally(function()
@@ -112,26 +110,60 @@ function ($scope, $location, $http, authService, auth,$window,NgMap,LocationServ
 myAppModule.controller("DetailCustomerController", ["$scope", "$location","$http", "authService", "auth","$window","$routeParams","NgMap","LocationService","$cordovaBarcodeScanner","$cordovaCamera","$cordovaCapture","apiService","singleapiService",
 function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap,LocationService,$cordovaBarcodeScanner,$cordovaCamera,$cordovaCapture,apiService,singleapiService) 
 {
+
     $scope.loading = true;
     var idcustomer = $routeParams.idcustomer;
     $scope.zoomvalue = 17;
+
     LocationService.GetLocation().then(function(data)
     {
         $scope.lat = data.latitude;
         $scope.long = data.longitude;
+
+        singleapiService.singlelistcustomer(idcustomer)
+        .then(function (result) 
+        {
+            
+            // console.log(result);
+            $scope.customer = result;
+
+            $scope.loading  = false;
+            var longitude1     = $scope.lat;
+            var latitude1      = $scope.long;
+
+            var longitude2     = result.MAP_LAT;
+            var latitude2      = result.MAP_LNG;
+
+            //alert(longitude1);
+            //alert(longitude2);
+
+            var thetalong      = (longitude1 - longitude2)*(Math.PI / 180); 
+            var thetalat       = (latitude1 - latitude2)*(Math.PI / 180);
+            //console.log(thetalong);
+            //console.log(thetalat);
+
+
+            var a = 0.5 - Math.cos(thetalat)/2 + Math.cos(latitude1 * Math.PI / 180) * Math.cos(latitude2 * Math.PI / 180) * (1 - Math.cos(thetalong))/2;
+            var jarak = 12742 * Math.asin(Math.sqrt(a));
+            // //console.log(jarak);
+            // if( 0.03 > jarak )
+            // {
+            //     //alert("Dalam Radius");
+            // }
+            // else
+            // {
+                
+            //     $location.path('/visit');
+            //     alert("Tidak Dalam Radius. Anda Tidak Bisa Check In Di Tempat Ini");
+            // }
+        });
+
     });
 
-    singleapiService.singlelistcustomer(idcustomer)
-    .then(function (result) 
-    {
-        $scope.customer = result;
-        $scope.loading  = false;  
-    });
+
+
     $scope.doSth = function($event,customer)
     {
-        // var idcustomer = customer.CUST_KD;
-        // alert(idcustomer);
-        console.log(customer);
         customer.MAP_LNG = this.getPosition().lng();
         customer.MAP_LAT = this.getPosition().lat();
         customer.NPWP = 200;
@@ -166,10 +198,10 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
         })
         .error(function (data, status, header, config) 
         {
-            console.log(data);
-            console.log(status);
-            console.log(header);
-            console.log(config);      
+            // console.log(data);
+            // console.log(status);
+            // console.log(header);
+            // console.log(config);      
         })
 
         .finally(function()
@@ -233,10 +265,10 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
         document.addEventListener("deviceready", function () {
 
           var options = {
-            quality: 50,
+            quality: 100,
             destinationType: Camera.DestinationType.DATA_URL,
             sourceType: Camera.PictureSourceType.CAMERA,
-            allowEdit: true,
+            allowEdit: false,
             encodingType: Camera.EncodingType.JPEG,
             targetWidth: 100,
             targetHeight: 100,
