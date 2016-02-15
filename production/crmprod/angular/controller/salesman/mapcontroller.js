@@ -114,9 +114,10 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
     $scope.loading = true;
     var idcustomer = $routeParams.idcustomer;
     $scope.zoomvalue = 17;
-
+    var geocoder = new google.maps.Geocoder;
     LocationService.GetLocation().then(function(data)
     {
+        alert("Cek Location Service");
         $scope.lat = data.latitude;
         $scope.long = data.longitude;
 
@@ -124,7 +125,7 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
         .then(function (result) 
         {
             
-            // console.log(result);
+            alert("Cek Single Customer");
             $scope.customer = result;
 
             $scope.loading  = false;
@@ -145,17 +146,18 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
 
             var a = 0.5 - Math.cos(thetalat)/2 + Math.cos(latitude1 * Math.PI / 180) * Math.cos(latitude2 * Math.PI / 180) * (1 - Math.cos(thetalong))/2;
             var jarak = 12742 * Math.asin(Math.sqrt(a));
-            // //console.log(jarak);
-            // if( 0.03 > jarak )
-            // {
-            //     //alert("Dalam Radius");
-            // }
-            // else
-            // {
+            //console.log(jarak);
+            if( 0.03 > jarak )
+            {
+                alert("Dalam Radius");
+                alert(jarak + " km");
+            }
+            else
+            {
                 
-            //     $location.path('/visit');
-            //     alert("Tidak Dalam Radius. Anda Tidak Bisa Check In Di Tempat Ini");
-            // }
+                $location.path('/visit');
+                alert("Tidak Dalam Radius. Anda Tidak Bisa Check In Di Tempat Ini");
+            }
         });
 
     });

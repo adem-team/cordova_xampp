@@ -193,6 +193,61 @@ myAppModule.config(['$routeProvider', function($routeProvider,$authProvider)
             }
         }
     });
+    
+    $routeProvider.when('/groupcustomer',
+    {
+        templateUrl : 'angular/partial/salesman/groupcustomer.html',
+        controller  : 'GroupCustController',
+        resolve: 
+        {
+            auth: function ($q, authService,$location) 
+            {
+                var userInfo = authService.getUserInfo();
+                if(userInfo)
+                {
+                   if (userInfo.rulename === 'SALESMAN') 
+                    {
+                        return $q.when(userInfo);
+                    }
+                    else
+                    {
+                        $location.path('/error/404');
+                    } 
+                }
+                else 
+                {
+                    $location.path('/');
+                }
+            }
+        }
+    });
+    $routeProvider.when('/detailgroupcustomer/:idgroupcustomer',
+    {
+        templateUrl : 'angular/partial/salesman/detailgroupcustomer.html',
+        controller  : 'DetailGroupCustController',
+        resolve: 
+        {
+            auth: function ($q, authService,$location) 
+            {
+                var userInfo = authService.getUserInfo();
+                if(userInfo)
+                {
+                   if (userInfo.rulename === 'SALESMAN') 
+                    {
+                        return $q.when(userInfo);
+                    }
+                    else
+                    {
+                        $location.path('/error/404');
+                    } 
+                }
+                else 
+                {
+                    $location.path('/');
+                }
+            }
+        }
+    });
     $routeProvider.otherwise({redirectTo:'/error/404'});
 
 }]);

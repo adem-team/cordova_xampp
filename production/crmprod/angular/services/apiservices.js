@@ -124,6 +124,25 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
         return deferred.promise;
 	}
 
+	var listgroupcustomer = function()
+	{
+		var deferred = $q.defer();
+		var url = "http://labtest3-api.int/master/groupcusts";
+		var method ="GET";
+		$http({method:method, url:url})
+        .success(function(response) 
+        {
+		  deferred.resolve(response);
+        })
+
+        .error(function()
+        {
+            deferred.reject(error);
+        });
+
+        return deferred.promise;
+	}
+
 	var listdistributor = function()
 	{
 		var deferred = $q.defer();
@@ -195,6 +214,7 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 			listcustomer:listcustomer,
 			listdistributor:listdistributor,
 			listparentcustomerkategoris:listparentcustomerkategoris,
-			listchildcustomerkategoris:listchildcustomerkategoris
+			listchildcustomerkategoris:listchildcustomerkategoris,
+			listgroupcustomer:listgroupcustomer
 		}
 }]);

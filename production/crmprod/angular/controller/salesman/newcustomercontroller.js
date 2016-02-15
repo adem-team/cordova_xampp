@@ -73,6 +73,10 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
         $location.path('/visit');
     }
 
+    $scope.groupcustomer = function()
+    {
+        $location.path('/groupcustomer');
+    }
     $scope.reportase = function()
     {
         $location.path('/report');
