@@ -91,6 +91,10 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
     {
         $location.path('/mapcustomer');
     }
+    $scope.agenda = function()
+    {
+        $location.path('/agenda');
+    }
 
     $scope.userInfo = auth;
 

@@ -117,7 +117,7 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
     var geocoder = new google.maps.Geocoder;
     LocationService.GetLocation().then(function(data)
     {
-        alert("Cek Location Service");
+        //alert("Cek Location Service");
         $scope.lat = data.latitude;
         $scope.long = data.longitude;
 
@@ -125,7 +125,7 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
         .then(function (result) 
         {
             
-            alert("Cek Single Customer");
+            // alert("Cek Single Customer");
             $scope.customer = result;
 
             $scope.loading  = false;
@@ -149,8 +149,8 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
             //console.log(jarak);
             if( 0.03 > jarak )
             {
-                alert("Dalam Radius");
-                alert(jarak + " km");
+                // alert("Dalam Radius");
+                // alert(jarak + " km");
             }
             else
             {

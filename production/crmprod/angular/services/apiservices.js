@@ -1,6 +1,7 @@
 'use strict';
 myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $window)
 {
+
 	var getUrl = function()
 	{
 		return "http://labtest3-api.int/master";
@@ -205,6 +206,28 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
         return deferred.promise;
 	}
 
+	var listagenda = function(idsalesman,tanggal)
+	{
+		var url = getUrl();
+		
+		var deferred = $q.defer();
+		var url = "http://lukison.int/master/agendas/search?USER_ID="+ idsalesman + "&TGL=" + tanggal;
+		var method ="GET";
+		$http({method:method, url:url})
+        .success(function(response) 
+        {
+		  deferred.resolve(response);
+        })
+
+        .error(function()
+        {
+            deferred.reject(error);
+            console.log('List Agenda Error');
+        });
+
+        return deferred.promise;
+	}
+
 	return{
 			listbarangumum:listbarangumum,
 			listkategori:listkategori,
@@ -215,6 +238,7 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 			listdistributor:listdistributor,
 			listparentcustomerkategoris:listparentcustomerkategoris,
 			listchildcustomerkategoris:listchildcustomerkategoris,
-			listgroupcustomer:listgroupcustomer
+			listgroupcustomer:listgroupcustomer,
+			listagenda:listagenda
 		}
 }]);
