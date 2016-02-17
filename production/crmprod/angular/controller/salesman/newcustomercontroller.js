@@ -1,27 +1,8 @@
 'use strict';
-myAppModule.controller("HomeController", ["$scope", "$location","$http", "authService", "auth","$window","apiService","regionalService",
-function ($scope, $location, $http, authService, auth,$window,apiService,regionalService) 
+myAppModule.controller("NewCustomerController", ["$scope", "$location","$http", "authService", "auth","$window","apiService","regionalService","ngToast",
+function ($scope, $location, $http, authService, auth,$window,apiService,regionalService,ngToast) 
 {
     $scope.loading = true;
-    $scope.newcustomer = function()
-    {
-        $location.path('/customer');
-    }
-
-    // apiService.listparentcustomerkategoris()
-    // .then(function (result) 
-    // {
-    //     $scope.customerkategoris = result.CustomKategori;
-    //     $scope.loading  = false;
-    // });
-    
-    // apiService.listcustomer()
-    // .then(function (result) 
-    // {
-    //     $scope.customers = result.Customer;
-    //     $scope.loading  = false;
-    //     console.log($scope.customers);   
-    // });
 
     apiService.listdistributor()
     .then(function (result) 
@@ -36,12 +17,6 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
         $scope.provinsis = result.Provinsi;  
     });
 
-    // var kab = regionalService.listkabupaten()
-    // .then(function (result) 
-    // {
-    //     $scope.kabupatens = result.Kabupaten; 
-    //     return result; 
-    // });
 
     $scope.provinsichange=function()
     {
@@ -68,34 +43,6 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
         $scope.showalamat = true;
     }
 
-    $scope.viscustomer = function()
-    {
-        $location.path('/visit');
-    }
-
-    $scope.groupcustomer = function()
-    {
-        $location.path('/groupcustomer');
-    }
-    $scope.reportase = function()
-    {
-        $location.path('/report');
-    }
-
-    $scope.profile = function()
-    {
-        $location.path('/profile');
-    }
-
-    $scope.mapcustomer = function()
-    {
-        $location.path('/mapcustomer');
-    }
-    $scope.agenda = function()
-    {
-        $location.path('/agenda');
-    }
-
     $scope.userInfo = auth;
 
 	$scope.logout = function () 
@@ -104,7 +51,7 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
         $window.sessionStorage.clear();
         window.location.href = "index.html";
     }
-    
+  
 }]);
 
 

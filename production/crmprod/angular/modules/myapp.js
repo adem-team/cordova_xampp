@@ -1,8 +1,8 @@
 'use strict';
 var myAppModule 	= angular.module('myAppModule',
-								['ngRoute','angularSpinner','ui.bootstrap','ngAnimate',
+								['ngRoute','ngResource','ngToast','angularSpinner','ui.bootstrap','ngAnimate',
                                     'ui.select2','naif.base64','monospaced.qrcode',
-                                 'ngCordova','ngMap','mm.acl']);
+                                 'ngCordova','ngMap','mm.acl','ng-mfb']);
 myAppModule.run(["$rootScope", "$location","uiSelect2Config", 
 function ($rootScope, $location,uiSelect2Config) 
 {
@@ -24,6 +24,22 @@ function ($rootScope, $location,uiSelect2Config)
             $location.path("/login");
         }
     });
+}]);
+
+myAppModule.config(['ngToastProvider', function(ngToastProvider) 
+{
+      ngToastProvider.configure(
+      {
+            animation: 'slide', // or 'fade',
+            className: 'success',
+            dismissButton: true,
+            dismissButtonHtml:'&times;',
+            compileContent: true,
+            timeout:1000,
+            horizontalPosition:'right',     //left, center
+            verticalPosition:   'bottom',  //top,center
+            maxNumber: 3 // 0 for unlimited
+      });
 }]);
 
 

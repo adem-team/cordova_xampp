@@ -1,5 +1,6 @@
 
 document.write('<script src="angular/vendor/angular-route.js"></script>');
+document.write('<script src="angular/vendor/angular-resource.js"></script>');
 document.write('<script src="angular/vendor/angular-animate.js"></script>');
 document.write('<script src="angular/vendor/ng-angular.js"></script>');
 document.write('<script src="angular/vendor/upload-base64.js"></script>');
@@ -14,4 +15,10 @@ document.write('<script src="bower_components/angular-bootstrap/ui-bootstrap-tpl
 document.write('<script src="bower_components/select2/select2.js"></script>');
 document.write('<script src="bower_components/angular-ui-select2/src/select2.js"></script>');
 document.write('<script src="https://maps.googleapis.com/maps/api/js"></script>');
+
+
+document.write('<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>');
+document.write('<script src="bower_components/ngToast/dist/ngToast.min.js"></script>');
+document.write('<script src="bower_components/ng-material-floating-button/mfb/src/mfb.js"></script>');
+document.write('<script src="bower_components/ng-material-floating-button/src/mfb-directive.js"></script>');
 

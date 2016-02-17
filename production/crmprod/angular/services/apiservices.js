@@ -12,104 +12,13 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 		return "?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa";
 	}
 	
-	var listbarangumum = function()
-	{
-		var deferred = $q.defer();
-		var url = "http://api.lukisongroup.com/master/barangumums?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa&expand=type,kategori,unit";
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-        .error(function()
-        {
-            deferred.reject(error);
-        });
 
-        return deferred.promise;
-	}
-
-	var listkategori = function()
-	{
-		var deferred = $q.defer();
-		var url = "http://api.lukisongroup.com/master/kategoris?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa";
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-
-        .error(function()
-        {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-	}
-
-	var listtipebarang = function()
-	{
-		var deferred = $q.defer();
-		var url = "http://api.lukisongroup.com/master/tipebarangs?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa";
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-
-        .error(function()
-        {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-	}
-
-	var listsuplier = function()
-	{
-		var deferred = $q.defer();
-		var url = "http://api.lukisongroup.com/master/supliers?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa";
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-
-        .error(function()
-        {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-	}
-
-	var listbarangunit = function()
-	{
-		var deferred = $q.defer();
-		var url = "http://api.lukisongroup.com/master/unitbarangs?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa";
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-
-        .error(function()
-        {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-	}
 
 	var listcustomer = function()
 	{
+		var url = getUrl();
 		var deferred = $q.defer();
-		var url = "http://labtest3-api.int/master/customers";
+		var url = url + "/customers";
 		var method ="GET";
 		$http({method:method, url:url})
         .success(function(response) 
@@ -127,8 +36,9 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 
 	var listgroupcustomer = function()
 	{
+		var url = getUrl();
 		var deferred = $q.defer();
-		var url = "http://labtest3-api.int/master/groupcusts";
+		var url = url + "/groupcusts";
 		var method ="GET";
 		$http({method:method, url:url})
         .success(function(response) 
@@ -146,8 +56,9 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 
 	var listdistributor = function()
 	{
+		var url = getUrl();
 		var deferred = $q.defer();
-		var url = "http://labtest3-api.int/master/distributors";
+		var url = url + "/distributors";
 		var method ="GET";
 		$http({method:method, url:url})
         .success(function(response) 
@@ -211,7 +122,7 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 		var url = getUrl();
 		
 		var deferred = $q.defer();
-		var url = "http://lukison.int/master/agendas/search?USER_ID="+ idsalesman + "&TGL=" + tanggal;
+		var url = url + "/agendas/search?USER_ID="+ idsalesman + "&TGL=" + tanggal;
 		var method ="GET";
 		$http({method:method, url:url})
         .success(function(response) 
@@ -229,11 +140,6 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 	}
 
 	return{
-			listbarangumum:listbarangumum,
-			listkategori:listkategori,
-			listtipebarang:listtipebarang,
-			listsuplier:listsuplier,
-			listbarangunit:listbarangunit,
 			listcustomer:listcustomer,
 			listdistributor:listdistributor,
 			listparentcustomerkategoris:listparentcustomerkategoris,

@@ -32,7 +32,7 @@ myAppModule.config(['$routeProvider', function($routeProvider,$authProvider)
     $routeProvider.when('/customer',
     {
         templateUrl : 'angular/partial/salesman/customer.html',
-        controller  : 'HomeController',
+        controller  : 'NewCustomerController',
         resolve: 
         {
             auth: function ($q, authService,$location) 
