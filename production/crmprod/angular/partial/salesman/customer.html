@@ -23,7 +23,28 @@
           <form name="customerForm" ng-submit="submitForm(customer)" method="post" novalidate>
           <div class="box-body" >
             <fieldset class="scheduler-border">
-              <legend class="scheduler-border">Customer Identity</legend>
+              <legend class="scheduler-border">Customer Address</legend>
+              
+              <md-input-container class="md-block">
+                <label>Description</label>
+                <input md-maxlength="30" required name="description" ng-model="project.description">
+                <div ng-messages="customerForm.description.$error">
+                  <div ng-message="required">This is required.</div>
+                  <div ng-message="md-maxlength">Less 30 characters long.</div>
+                </div>
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                <label>Favorite Number</label>
+                <md-select name="myModel" ng-model="myModel" required>
+                  <md-option value="1">One</md-option>
+                  <md-option value="2">Two</md-option>
+                </md-select>
+                <div class="errors" ng-messages="myForm.myModel.$error" ng-if="myForm.$dirty">
+                  <div ng-message="required">Required</div>
+                </div>
+              </md-input-container>
+
               <div class="form-group"  ng-class="{ 'has-error' : customerForm.CUST_NM.$invalid && !customerForm.CUST_NM.$pristine,'has-success':customerForm.CUST_NM.$valid  }">
               <label>Nama Customer</label>
                 <input type="text" name="CUST_NM" class="form-control" ng-model="customer.CUST_NM" required>
