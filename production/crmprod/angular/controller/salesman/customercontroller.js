@@ -21,6 +21,7 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
     
 }]);
 
+
 myAppModule.controller("DetailGroupCustController", ["$scope", "$location","$http", "$routeParams","authService", "auth","$window","singleapiService","regionalService",
 function ($scope, $location, $http,$routeParams, authService, auth,$window,singleapiService,regionalService) 
 {

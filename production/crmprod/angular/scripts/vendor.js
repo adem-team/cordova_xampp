@@ -23,3 +23,7 @@ document.write('<script src="bower_components/ng-material-floating-button/mfb/sr
 document.write('<script src="bower_components/ng-material-floating-button/src/mfb-directive.js"></script>');
 document.write('<script src="bower_components/angular-aria/angular-aria.js"></script>');
 document.write('<script src="bower_components/angular-material/angular-material.js"></script>');
+
+
+document.write('<script src="bower_components/angular-sweetalert/dist/ngSweetAlert.js"></script>');
+

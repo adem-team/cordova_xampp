@@ -3,7 +3,7 @@ myAppModule.factory('singleapiService', ["$http","$q","$window",function($http, 
 {
 	var geturl = function()
 	{
-		return "http://api.lukison.int/master";
+		return "http://labtest3-api.int/master";
 	}
 
 	var gettoken = function()

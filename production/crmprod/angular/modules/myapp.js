@@ -2,7 +2,7 @@
 var myAppModule 	= angular.module('myAppModule',
 								['ngRoute','ngResource','ngToast','angularSpinner','ui.bootstrap','ngAnimate',
                                     'ui.select2','naif.base64','monospaced.qrcode',
-                                 'ngCordova','ngMap','mm.acl','ng-mfb','ngMaterial','ngMessages']);
+                                 'ngCordova','ngMap','mm.acl','ng-mfb','ngMaterial','ngMessages','hSweetAlert']);
 myAppModule.run(["$rootScope", "$location","uiSelect2Config", 
 function ($rootScope, $location,uiSelect2Config) 
 {
