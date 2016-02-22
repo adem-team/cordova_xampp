@@ -125,7 +125,7 @@ function ($scope, $location, $http, authService, auth,$window,apiService)
                     }
                 };
                 
-                $http.post("http://lukison.int/master/barangumums",serialized,config)
+                $http.post("http://labtest3-api.int/master/barangumums",serialized,config)
                 .success(function(data,status, headers, config) 
                 {
                     $location.path("/erp/masterbarang/list/barangumum");
@@ -417,7 +417,7 @@ function ($scope, $location, $http, $routeParams, authService, auth, $window,api
                 }
             };
             
-            $http.put("http://lukison.int/master/barangumums/"+ idbarangumum ,data,config)
+            $http.put("http://labtest3-api.int/master/barangumums/"+ idbarangumum ,data,config)
             .success(function(data,status, headers, config) 
             {
                 $location.path("/erp/masterbarang/list/barangumum");
