@@ -117,9 +117,11 @@ myAppModule.controller("DetailCustomerController", ["$scope", "$location","$http
 function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap,LocationService,$cordovaBarcodeScanner,$cordovaCamera,$cordovaCapture,apiService,singleapiService,ngToast,$mdDialog) 
 {
     $scope.loading = true;
+    var idsalesman = auth.id;
     var idcustomer = $routeParams.idcustomer;
     $scope.zoomvalue = 17;
     var geocoder = new google.maps.Geocoder;
+    
     LocationService.GetLocation().then(function(data)
     {
         //alert("Cek Location Service");

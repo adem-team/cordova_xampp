@@ -197,7 +197,8 @@ myAppModule.controller("DetailKategoriController", ["$scope", "$location","$http
     }
 }]);
 
-myAppModule.controller("EditKategoriController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window","singleapiService", function ($scope, $location, $http, $routeParams, authService, auth, $window,singleapiService) 
+myAppModule.controller("EditKategoriController", ["$scope", "$location","$http", "$routeParams", "authService", "auth", "$window","singleapiService", "ngToast",
+function ($scope, $location, $http, $routeParams, authService, auth, $window,singleapiService,ngToast) 
 {
     $scope.loading = true ;
     $scope.userInfo = auth;
@@ -236,6 +237,7 @@ myAppModule.controller("EditKategoriController", ["$scope", "$location","$http",
             $http.put("http://labtest3-api.int/master/kategoris/"+idkategori,serialized,config)
             .success(function(data,status, headers, config) 
             {
+                ngToast.create('Kategori Barang Telah Berhasil Di Update');
                 $location.path("/erp/masterbarang/list/kategori");
 
             })

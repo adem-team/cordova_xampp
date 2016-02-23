@@ -18,7 +18,7 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
 {
     $scope.loading  = true;
     var idsalesman = auth.id;
-    var tanggal = "2016-02-12";
+    var tanggal = "2016-02-02";
     apiService.listagenda(idsalesman,tanggal)
     .then(function (result) 
     {

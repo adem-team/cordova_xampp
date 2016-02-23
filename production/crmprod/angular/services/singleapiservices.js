@@ -141,7 +141,7 @@ myAppModule.factory('singleapiService', ["$http","$q","$window",function($http, 
 	{
 		var url = geturl();
 		var deferred = $q.defer();
-		var url = url + "/customers/search?SCDL_GROUP="+ groupcustomer;
+		var url = "http://api.lukison.int/master" + "/customers/search?SCDL_GROUP="+ groupcustomer;
 		var method ="GET";
 		$http({method:method, url:url})
         .success(function(response) 

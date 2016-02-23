@@ -122,7 +122,7 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 		var url = getUrl();
 		
 		var deferred = $q.defer();
-		var url = url + "/agendas/search?USER_ID="+ idsalesman + "&TGL=" + tanggal;
+		var url = "http://api.lukison.int/master" + "/jadwalkunjungans/search?USER_ID="+ idsalesman + "&TGL1=" + tanggal;
 		var method ="GET";
 		$http({method:method, url:url})
         .success(function(response) 

@@ -58,9 +58,11 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 	var listtipebarang = function(page)
 	{
 		var url = geturl();
+		var token = gettoken();
+
 		var page = page;
 		var deferred = $q.defer();
-		var url = url + "/tipebarangs?page="+ page;
+		var url = url + "/tipebarangs"+ token;
 		var method ="GET";
 		$http({method:method, url:url})
         .success(function(response) 
