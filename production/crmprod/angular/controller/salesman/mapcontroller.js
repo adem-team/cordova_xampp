@@ -113,21 +113,22 @@ function ($scope, $location, $http, authService, auth,$window,NgMap,LocationServ
 
 
 
-myAppModule.controller("DetailCustomerController", ["$scope", "$location","$http", "authService", "auth","$window","$routeParams","NgMap","LocationService","$cordovaBarcodeScanner","$cordovaCamera","$cordovaCapture","apiService","singleapiService","ngToast","$mdDialog",
-function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap,LocationService,$cordovaBarcodeScanner,$cordovaCamera,$cordovaCapture,apiService,singleapiService,ngToast,$mdDialog) 
+myAppModule.controller("DetailCustomerController", ["$scope", "$location","$http", "authService", "auth","$window","$routeParams","NgMap","LocationService","$cordovaBarcodeScanner","$cordovaCamera","$cordovaCapture","apiService","singleapiService","ngToast","$mdDialog","$filter",
+function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap,LocationService,$cordovaBarcodeScanner,$cordovaCamera,$cordovaCapture,apiService,singleapiService,ngToast,$mdDialog,$filter) 
 {
     $scope.loading = true;
     var idsalesman = auth.id;
     var idcustomer = $routeParams.idcustomer;
     $scope.zoomvalue = 17;
     var geocoder = new google.maps.Geocoder;
-    
+
+    var tanggal = $filter('date')(new Date(),'yyyy-MM-dd');
+
     LocationService.GetLocation().then(function(data)
     {
         //alert("Cek Location Service");
         $scope.lat = data.latitude;
         $scope.long = data.longitude;
-
         singleapiService.singlelistcustomer(idcustomer)
         .then(function (result) 
         {
@@ -153,19 +154,70 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
 
             var a = 0.5 - Math.cos(thetalat)/2 + Math.cos(latitude1 * Math.PI / 180) * Math.cos(latitude2 * Math.PI / 180) * (1 - Math.cos(thetalong))/2;
             var jarak = 12742 * Math.asin(Math.sqrt(a));
-            //console.log(jarak);
-            if( 0.03 > jarak )
+
+            singleapiService.detailkunjungan(idsalesman,idcustomer,tanggal)
+            .then(function (result) 
             {
-                // alert("Dalam Radius");
-                // alert(jarak + " km");
-            }
-            else
-            {
-                
-                //$location.path('/agenda');
-                //alert("Tidak Dalam Radius. Anda Tidak Bisa Check In Di Tempat Ini");
-            }
+                if(result.DetailKunjungan)
+                {
+
+                }
+                else
+                {
+                    function serializeObj(obj) 
+                    {
+                      var result = [];
+                      for (var property in obj) result.push(encodeURIComponent(property) + "=" + encodeURIComponent(obj[property]));
+                      return result.join("&");
+                    }
+
+                    var detail={};
+
+                    detail.USER_ID=idsalesman;
+                    detail.CUST_ID=idcustomer;
+                    detail.TGL=tanggal;
+                    detail.LAT=$scope.lat;
+                    detail.LAG=$scope.long = data.longitude;
+                    detail.RADIUS=jarak;
+                    detail.CREATE_BY=idsalesman;
+                    detail.SCDL_GROUP=$scope.customer.SCDL_GROUP;
+
+                    var serialized = serializeObj(detail); 
+                    var config = 
+                    {
+                        headers : 
+                        {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded;application/json;charset=utf-8;'
+                            
+                        }
+                    };
+                        
+
+                    //console.log(jarak);
+                    if( 0.03 > jarak )
+                    {
+                        //$http.post("http://api.lukison.int/master/detailkunjungans",serialized,config)
+                        $http.post("http://labtest3-api.int/master/detailkunjungans",serialized,config)
+                        .success(function(data,status, headers, config) 
+                        {
+                            ngToast.create('Detail Telah Berhasil Di Update');
+                        })
+
+                        .finally(function()
+                        {
+                            $scope.loading = false;  
+                        });
+                    }
+                    else
+                    {  
+                        //$location.path('/agenda');
+                        //alert("Tidak Dalam Radius. Anda Tidak Bisa Check In Di Tempat Ini");
+                    }
+                }
+            });
         });
+
 
     });
 

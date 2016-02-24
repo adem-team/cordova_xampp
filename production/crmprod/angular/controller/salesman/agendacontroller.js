@@ -1,6 +1,6 @@
 'use strict';
-myAppModule.controller("AgendaController", ["$scope", "$location","$http", "authService", "auth","$window","apiService","regionalService","singleapiService","NgMap","LocationService","$filter",
-function ($scope, $location, $http, authService, auth,$window,apiService,regionalService,singleapiService,NgMap,LocationService,$filter) 
+myAppModule.controller("AgendaController", ["$scope", "$location","$http", "authService", "auth","$window","apiService","regionalService","singleapiService","NgMap","LocationService","$filter","sweet",
+function ($scope, $location, $http, authService, auth,$window,apiService,regionalService,singleapiService,NgMap,LocationService,$filter,sweet) 
 {
     var geocoder = new google.maps.Geocoder;
     LocationService.GetLocation().then(function(data)
@@ -17,20 +17,44 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
     apiService.listagenda(idsalesman,tanggal)
     .then(function (result) 
     {
-        var idgroupcustomer;
-        angular.forEach(result.JadwalKunjungan, function(value, key) 
+        if(result.JadwalKunjungan)
         {
-          idgroupcustomer =value.SCDL_GROUP;
-        });
+            var idgroupcustomer;
+            angular.forEach(result.JadwalKunjungan, function(value, key) 
+            {
+              idgroupcustomer =value.SCDL_GROUP;
+            });
 
-        singleapiService.singlelistgroupcustomer(idgroupcustomer)
-        .then(function (result) 
+            singleapiService.singlelistgroupcustomer(idgroupcustomer)
+            .then(function (result) 
+            {
+                $scope.customers = result.Customer;
+                $scope.loading  = false;
+            });
+        }
+        else
         {
-            console.log(result);
-            $scope.customers = result.Customer;
             $scope.loading  = false;
-        });
+            sweet.show({
+                title: 'Confirm',
+                text: 'Cheers...Kamu Belum Memiliki Agenda Untuk Saat Ini',
+                type: 'warning',
+                showCancelButton: false,
+                confirmButtonColor: '#DD6B55',
+                confirmButtonText: 'Yeah. I Like This!',
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, 
+            function(isConfirm) 
+            {
+                if (isConfirm) 
+                {
+                    window.location.href = "index.html";
+                }
+            });
+        }
     });
+
     $scope.userInfo = auth;
     $scope.logout = function () 
     { 
