@@ -53,11 +53,11 @@ function ($scope, $location, $http, authService, auth,$window,NgMap,LocationServ
             //$location.path("/mapcustomer");
 
             ngToast.create(
-                            {
-                                
-                                content: 'Data Berhasi Di Ubah',
-                                
-                            });
+            {
+                
+                content: 'Data Berhasi Di Ubah',
+                
+            });
 
         })
         .error(function (data, status, header, config) 
@@ -214,6 +214,36 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
                         //$location.path('/agenda');
                         //alert("Tidak Dalam Radius. Anda Tidak Bisa Check In Di Tempat Ini");
                     }
+                    $scope.takeapicture = function()
+                    {
+                        document.addEventListener("deviceready", function () {
+
+                          var options = {
+                            quality: 100,
+                            destinationType: Camera.DestinationType.DATA_URL,
+                            sourceType: Camera.PictureSourceType.CAMERA,
+                            allowEdit: false,
+                            encodingType: Camera.EncodingType.JPEG,
+                            targetWidth: 100,
+                            targetHeight: 100,
+                            popoverOptions: CameraPopoverOptions,
+                            saveToPhotoAlbum: false,
+                            correctOrientation:true
+                          };
+
+                          $cordovaCamera.getPicture(options).then(function(imageData) 
+                          {
+                            var image = document.getElementById('myImage');
+                            image.src = "data:image/jpeg;base64," + imageData;
+                            var gambar = imageData;
+                          }, 
+                          function(err) 
+                          {
+                            // error
+                          });
+
+                        }, false);
+                    }
                 }
             });
         });
@@ -252,16 +282,134 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
             correctOrientation:true
           };
 
-          $cordovaCamera.getPicture(options).then(function(imageData) {
-            var image = document.getElementById('myImage');
-            image.src = "data:image/jpeg;base64," + imageData;
-          }, function(err) {
+          $cordovaCamera.getPicture(options).then(function(imageData) 
+          {
+            //var image = document.getElementById('myImage');
+            //image.src = "data:image/jpeg;base64," + imageData;
+            singleapiService.detailkunjungan(idsalesman,idcustomer,tanggal)
+            .then(function (result) 
+            {
+                idjadwalkunjungan = result.DetailKunjungan[0].ID;
+                
+                function serializeObj(obj) 
+                {
+                  var result = [];
+                  for (var property in obj) result.push(encodeURIComponent(property) + "=" + encodeURIComponent(obj[property]));
+                  return result.join("&");
+                }
+
+                var gambarkunjungan={};
+
+                gambarkunjungan.ID_DETAIL=idjadwalkunjungan;
+                gambarkunjungan.IMG_NM="gambar start";
+                gambarkunjungan.IMG_DECODE=imageData;
+                gambarkunjungan.STATUS=1;
+                gambarkunjungan.CREATE_BY=idsalesman;
+
+                var serialized = serializeObj(gambarkunjungan); 
+                var config = 
+                {
+                    headers : 
+                    {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded;application/json;charset=utf-8;'
+                        
+                    }
+                };
+                $http.post("http://labtest3-api.int/master/gambarkunjungans",serialized,config)
+                .success(function(data,status, headers, config) 
+                {
+                    ngToast.create('Gambar Telah Berhasil Di Update');
+                })
+
+                .finally(function()
+                {
+                    $scope.loading = false;  
+                });
+                
+            });
+          }, 
+          function(err) 
+          {
             // error
           });
 
         }, false);
     }
 
+    
+    $scope.endtakeapicture = function()
+    {
+        document.addEventListener("deviceready", function () {
+
+          var options = {
+            quality: 100,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: Camera.PictureSourceType.CAMERA,
+            allowEdit: false,
+            encodingType: Camera.EncodingType.JPEG,
+            targetWidth: 100,
+            targetHeight: 100,
+            popoverOptions: CameraPopoverOptions,
+            saveToPhotoAlbum: false,
+            correctOrientation:true
+          };
+
+          $cordovaCamera.getPicture(options).then(function(imageData) 
+          {
+            //var image = document.getElementById('myImage');
+            //image.src = "data:image/jpeg;base64," + imageData;
+             singleapiService.detailkunjungan(idsalesman,idcustomer,tanggal)
+            .then(function (result) 
+            {
+                idjadwalkunjungan = result.DetailKunjungan[0].ID;
+                
+                function serializeObj(obj) 
+                {
+                  var result = [];
+                  for (var property in obj) result.push(encodeURIComponent(property) + "=" + encodeURIComponent(obj[property]));
+                  return result.join("&");
+                }
+
+                var gambarkunjungan={};
+
+                gambarkunjungan.ID_DETAIL=idjadwalkunjungan;
+                gambarkunjungan.IMG_NM="gambar end";
+                gambarkunjungan.IMG_DECODE=imageData;
+                gambarkunjungan.STATUS=1;
+                gambarkunjungan.CREATE_BY=idsalesman;
+
+                var serialized = serializeObj(gambarkunjungan); 
+                var config = 
+                {
+                    headers : 
+                    {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded;application/json;charset=utf-8;'
+                        
+                    }
+                };
+                $http.post("http://labtest3-api.int/master/gambarkunjungans",serialized,config)
+                .success(function(data,status, headers, config) 
+                {
+                    ngToast.create('Gambar Telah Berhasil Di Update');
+                })
+
+                .finally(function()
+                {
+                    $scope.loading = false;  
+                });
+                
+            });
+          }, 
+          function(err) 
+          {
+            // error
+          });
+
+        }, false);
+    }
+    
     $scope.logout = function () 
     { 
         $scope.userInfo = null;

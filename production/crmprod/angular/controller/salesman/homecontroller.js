@@ -2,22 +2,27 @@
 myAppModule.controller("HomeController", ["$scope", "$location","$http", "authService", "auth","$window","NgMap","LocationService","apiService","ngToast","sweet", 
 function ($scope, $location, $http, authService, auth,$window,NgMap,LocationService,apiService,ngToast,sweet) 
 {
-        sweet.show({
-            title: 'Confirm',
-            text: 'Delete this file?',
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#DD6B55',
-            confirmButtonText: 'Yes, delete it!',
-            closeOnConfirm: false,
-            closeOnCancel: false
-        }, function(isConfirm) {
-            if (isConfirm) {
-                sweet.show('Deleted!', 'The file has been deleted.', 'success');
-            }else{
-                sweet.show('Cancelled', 'Your imaginary file is safe :)', 'error');
-            }
-        });
+    // sweet.show({
+    //     title: 'Confirm',
+    //     text: 'Delete this file?',
+    //     type: 'warning',
+    //     showCancelButton: true,
+    //     confirmButtonColor: '#DD6B55',
+    //     confirmButtonText: 'Yes, delete it!',
+    //     closeOnConfirm: false,
+    //     closeOnCancel: false
+    // }, 
+    // function(isConfirm) 
+    // {
+    //     if (isConfirm) 
+    //     {
+    //         sweet.show('Deleted!', 'The file has been deleted.', 'success');
+    //     }
+    //     else
+    //     {
+    //         sweet.show('Cancelled', 'Your imaginary file is safe :)', 'error');
+    //     }
+    // });
 
     $scope.zoomvalue = 17;
     $scope.loading  = true;

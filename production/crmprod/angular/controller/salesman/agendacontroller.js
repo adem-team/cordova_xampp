@@ -42,8 +42,8 @@ function ($scope, $location, $http, authService, auth,$window,apiService,regiona
                 showCancelButton: false,
                 confirmButtonColor: '#DD6B55',
                 confirmButtonText: 'Yeah. I Like This!',
-                closeOnConfirm: false,
-                closeOnCancel: false
+                closeOnConfirm: true,
+                closeOnCancel: true
             }, 
             function(isConfirm) 
             {
