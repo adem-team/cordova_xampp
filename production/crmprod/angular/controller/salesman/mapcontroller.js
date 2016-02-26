@@ -195,25 +195,21 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
                         
 
                     //console.log(jarak);
-                    if( 0.03 > jarak )
-                    {
+                    //if( 0.03 > jarak )
+                  
                         //$http.post("http://api.lukison.int/master/detailkunjungans",serialized,config)
-                        $http.post("http://labtest3-api.int/master/detailkunjungans",serialized,config)
-                        .success(function(data,status, headers, config) 
-                        {
-                            ngToast.create('Detail Telah Berhasil Di Update');
-                        })
+                    $http.post("http://labtest3-api.int/master/detailkunjungans",serialized,config)
+                    .success(function(data,status, headers, config) 
+                    {
+                        //ngToast.create('Detail Telah Berhasil Di Update');
+                    })
 
-                        .finally(function()
-                        {
-                            $scope.loading = false;  
-                        });
-                    }
-                    else
-                    {  
-                        //$location.path('/agenda');
-                        //alert("Tidak Dalam Radius. Anda Tidak Bisa Check In Di Tempat Ini");
-                    }
+                    .finally(function()
+                    {
+                        $scope.loading = false;  
+                    });
+                 
+
                     $scope.takeapicture = function()
                     {
                         document.addEventListener("deviceready", function () {
@@ -290,7 +286,6 @@ function ($scope, $location, $http, authService, auth,$window,$routeParams,NgMap
             .then(function (result) 
             {
                 idjadwalkunjungan = result.DetailKunjungan[0].ID;
-                
                 function serializeObj(obj) 
                 {
                   var result = [];
