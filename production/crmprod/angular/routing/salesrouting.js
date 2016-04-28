@@ -29,64 +29,10 @@ myAppModule.config(['$routeProvider', function($routeProvider,$authProvider)
         }
 	});
 
-    $routeProvider.when('/customer',
+    $routeProvider.when('/setposition',
     {
-        templateUrl : 'angular/partial/salesman/customer.html',
-        controller  : 'NewCustomerController',
-        resolve: 
-        {
-            auth: function ($q, authService,$location) 
-            {
-                var userInfo = authService.getUserInfo();
-                if(userInfo)
-                {
-                   if (userInfo.rulename === 'SALESMAN') 
-                    {
-                        return $q.when(userInfo);
-                    }
-                    else
-                    {
-                        $location.path('/error/404');
-                    } 
-                }
-                else 
-                {
-                    $location.path('/');
-                }
-            }
-        }
-    });
-    $routeProvider.when('/visit',
-    {
-        templateUrl : 'angular/partial/salesman/visit.html',
-        controller  : 'VisitController',
-        resolve: 
-        {
-            auth: function ($q, authService,$location) 
-            {
-                var userInfo = authService.getUserInfo();
-                if(userInfo)
-                {
-                   if (userInfo.rulename === 'SALESMAN') 
-                    {
-                        return $q.when(userInfo);
-                    }
-                    else
-                    {
-                        $location.path('/error/404');
-                    } 
-                }
-                else 
-                {
-                    $location.path('/');
-                }
-            }
-        }
-    });
-    $routeProvider.when('/report',
-    {
-        templateUrl : 'angular/partial/salesman/report.html',
-        controller  : 'HomeController',
+        templateUrl : 'angular/partial/salesman/setposition.html',
+        controller  : 'SetPositionController',
         resolve: 
         {
             auth: function ($q, authService,$location) 
@@ -111,62 +57,7 @@ myAppModule.config(['$routeProvider', function($routeProvider,$authProvider)
         }
     });
 
-    $routeProvider.when('/profile',
-    {
-        templateUrl : 'angular/partial/salesman/profile.html',
-        controller  : 'HomeController',
-        resolve: 
-        {
-            auth: function ($q, authService,$location) 
-            {
-                var userInfo = authService.getUserInfo();
-                if(userInfo)
-                {
-                   if (userInfo.rulename === 'SALESMAN') 
-                    {
-                        return $q.when(userInfo);
-                    }
-                    else
-                    {
-                        $location.path('/error/404');
-                    } 
-                }
-                else 
-                {
-                    $location.path('/');
-                }
-            }
-        }
-    });
-
-    $routeProvider.when('/mapcustomer',
-    {
-        templateUrl : 'angular/partial/salesman/mapcustomer.html',
-        controller  : 'SalesMapController',
-        resolve: 
-        {
-            auth: function ($q, authService,$location) 
-            {
-                var userInfo = authService.getUserInfo();
-                if(userInfo)
-                {
-                   if (userInfo.rulename === 'SALESMAN') 
-                    {
-                        return $q.when(userInfo);
-                    }
-                    else
-                    {
-                        $location.path('/error/404');
-                    } 
-                }
-                else 
-                {
-                    $location.path('/');
-                }
-            }
-        }
-    });
-    $routeProvider.when('/detailcustomer/:idcustomer',
+    $routeProvider.when('/detailcustomer/:idcustomer/:idtanggal',
     {
         templateUrl : 'angular/partial/salesman/detailcustomer.html',
         controller  : 'DetailCustomerController',
@@ -194,89 +85,6 @@ myAppModule.config(['$routeProvider', function($routeProvider,$authProvider)
         }
     });
     
-    $routeProvider.when('/groupcustomer',
-    {
-        templateUrl : 'angular/partial/salesman/groupcustomer.html',
-        controller  : 'GroupCustController',
-        resolve: 
-        {
-            auth: function ($q, authService,$location) 
-            {
-                var userInfo = authService.getUserInfo();
-                if(userInfo)
-                {
-                   if (userInfo.rulename === 'SALESMAN') 
-                    {
-                        return $q.when(userInfo);
-                    }
-                    else
-                    {
-                        $location.path('/error/404');
-                    } 
-                }
-                else 
-                {
-                    $location.path('/');
-                }
-            }
-        }
-    });
-    $routeProvider.when('/detailgroupcustomer/:idgroupcustomer',
-    {
-        templateUrl : 'angular/partial/salesman/detailgroupcustomer.html',
-        controller  : 'DetailGroupCustController',
-        resolve: 
-        {
-            auth: function ($q, authService,$location) 
-            {
-                var userInfo = authService.getUserInfo();
-                if(userInfo)
-                {
-                   if (userInfo.rulename === 'SALESMAN') 
-                    {
-                        return $q.when(userInfo);
-                    }
-                    else
-                    {
-                        $location.path('/error/404');
-                    } 
-                }
-                else 
-                {
-                    $location.path('/');
-                }
-            }
-        }
-    });
-
-    $routeProvider.when('/agenda',
-    {
-        templateUrl : 'angular/partial/salesman/agenda.html',
-        controller  : 'AgendaController',
-        resolve: 
-        {
-            auth: function ($q, authService,$location) 
-            {
-                var userInfo = authService.getUserInfo();
-                if(userInfo)
-                {
-                   if (userInfo.rulename === 'SALESMAN') 
-                    {
-                        return $q.when(userInfo);
-                    }
-                    else
-                    {
-                        $location.path('/error/404');
-                    } 
-                }
-                else 
-                {
-                    $location.path('/');
-                }
-            }
-        }
-    });
-
     $routeProvider.when('/agenda/:idtanggal',
     {
         templateUrl : 'angular/partial/salesman/agenda.html',
@@ -301,36 +109,15 @@ myAppModule.config(['$routeProvider', function($routeProvider,$authProvider)
                 {
                     $location.path('/');
                 }
-            }
-        }
-    });
-
-    $routeProvider.when('/mapagenda',
-    {
-        templateUrl : 'angular/partial/salesman/mapagenda.html',
-        controller  : 'MapAgendaController',
-        resolve: 
-        {
-            auth: function ($q, authService,$location) 
+            },
+            ResolveIdGroupCustomer: function (authService,JadwalKunjunganService,$route) 
             {
-                var userInfo = authService.getUserInfo();
-                if(userInfo)
-                {
-                   if (userInfo.rulename === 'SALESMAN') 
-                    {
-                        return $q.when(userInfo);
-                    }
-                    else
-                    {
-                        $location.path('/error/404');
-                    } 
-                }
-                else 
-                {
-                    $location.path('/');
-                }
-            }
+                var tanggalplan             = $route.current.params.idtanggal;
+                var userInfo                = authService.getUserInfo();
+                return JadwalKunjunganService.GetGroupCustomerByTanggalPlan(userInfo,tanggalplan);
+            }   
         }
+
     });
 
     $routeProvider.when('/history',
@@ -357,9 +144,54 @@ myAppModule.config(['$routeProvider', function($routeProvider,$authProvider)
                 {
                     $location.path('/');
                 }
+            },
+            historyresolve: function(JadwalKunjunganService,authService)
+            {
+                var userInfo = authService.getUserInfo();
+                return JadwalKunjunganService.GetListHistory(userInfo);
             }
         }
     });
+
+    $routeProvider.when('/detailjadwalkunjungan/:iddetailkunjungan',
+    {
+        templateUrl : 'angular/partial/salesman/detailjadwalkunjungan.html',
+        controller  : 'DetailJadwalKunjunganController',
+        resolve: 
+        {
+            auth: function ($q, authService,$location) 
+            {
+                var userInfo = authService.getUserInfo();
+                if(userInfo)
+                {
+                   if (userInfo.rulename === 'SALESMAN') 
+                    {
+                        return $q.when(userInfo);
+                    }
+                    else
+                    {
+                        $location.path('/error/404');
+                    } 
+                }
+                else 
+                {
+                    $location.path('/');
+                }
+            },
+            resolvegpslocation: function (LocationService) 
+            {
+                var resolvegpslocation = LocationService.GetGpsLocation();
+                return resolvegpslocation;
+            },
+            resolvesingledetailkunjunganbyiddetail: function (singleapiService,$route) 
+            {
+                var iddetailkunjungan             = $route.current.params.iddetailkunjungan;
+                var resolvesingledetailkunjunganbyiddetail = singleapiService.singledetailkunjunganbyiddetail(iddetailkunjungan);
+                return resolvesingledetailkunjunganbyiddetail;
+            }
+        }
+    });
+
     $routeProvider.otherwise({redirectTo:'/error/404'});
 
 }]);

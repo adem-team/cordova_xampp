@@ -1,31 +1,115 @@
 
 <div ng-include="'angular/partial/headtemplate.html'"></div>
 <div ng-include="'angular/partial/homemenu.html'"></div>
-<div class="content-wrapper">
+<div class="content-wrapper" >
     <section class="content">
+      <div class="row" ng-if="(userInfo.accessid == 1)">
+            <div class="col-md-12">
+              <div class="box box-widget">
+                <div class="box-header with-border">
+                  <div class="user-block">
+                    <img class="img-circle" src="asset/admin/dist/img/user2-160x160.jpg" alt="User Image">
+                    <span class="username"><a href="#">{{userInfo.username}}</a></span>
+                    <span class="description">{{memo.STATUS_MESSAGES}} - 7:30 PM Today</span>
+                  </div>
+                  <!-- /.user-block -->
+                  <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <form name="customerForm" ng-submit="submitForm(salesmanmemo)" method="post" novalidate>
+                  <div class="box-body">
+                    <div class="form-group" ng-class="{ 'has-error' : customerForm.ISI_MESSAGES.$invalid && !customerForm.ISI_MESSAGES.$pristine,'has-success':customerForm.ISI_MESSAGES.$valid  }">
+                      <textarea class="form-control" name="ISI_MESSAGES" class="form-control" ng-model="salesmanmemo.ISI_MESSAGES"  rows="3" placeholder="Broadcast a Messages To Salesman ..." required></textarea>
+                    </div>
+                  </div>
+                  <div class="box-footer clearfix">
+                    <button type="submit" ng-disabled="customerForm.$invalid" class="pull-right btn btn-default" id="sendEmail">Send
+                      <i class="fa fa-arrow-circle-right"></i></button>
+                  </div>
+                </form>
+              </div>
+
+            </div>
+
+        </div>
         <div class="row">
-          <div class="col-md-12 col-sm-6 col-xs-12" ng-if="(userInfo.role =='manager')">
-            <ng-map zoom="19" center="{{lat}},{{long}}" style="display:block; width:100%; height:700px">
-                <marker position="{{lat}}, {{long}}"  draggable="false"></marker>
+            <div class="col-md-6" ng-repeat="memo in salesmanmemo | orderBy: 'ID':true ">
+              <div class="box box-widget">
+                <div class="box-header with-border">
+                  <div class="user-block">
+                    <img class="img-circle" src="asset/admin/dist/img/user2-160x160.jpg" alt="User Image">
+                    <span class="username"><a href="#">{{memo.NM_USER}}</a></span>
+                    <span class="description">{{memo.STATUS_MESSAGES}} - {{memo.CREATE_AT}}</span>
+                  </div>
+                  <!-- /.user-block -->
+                  <div class="box-tools">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                  </div>
+                </div>
+                <div class="box-body" compile="memo.ISI_MESSAGES ">
+                  {{ memo.ISI_MESSAGES }}
 
-                <marker ng-repeat="customer in customers" position="{{customer.MAP_LAT}}, {{customer.MAP_LNG}}"  draggable="false" icon='http://google-maps-icons.googlecode.com/files/factory.png' 
-                on-dragend="doSth(customer)"></marker>
-            </ng-map>
-          </div>
-          <div class="col-md-12 col-sm-6 col-xs-12" ng-if="(userInfo.role =='salesman')">
-            <ng-map zoom="19" center="{{lat}},{{long}}" style="display:block; width:100%; height:700px">
-                <marker position="{{lat}}, {{long}}"  draggable="false"></marker>
+                  <!-- <button type="button" class="btn btn-default btn-xs"><i class="fa fa-share"></i> Share</button>
+                  <button type="button" class="btn btn-default btn-xs"><i class="fa fa-thumbs-o-up"></i> Like</button>
+                  <span class="pull-right text-muted">45 likes - 2 comments</span> -->
+                </div>
 
-                <marker ng-repeat="customer in customers" position="{{customer.MAP_LAT}}, {{customer.MAP_LNG}}"  draggable="true" icon='http://google-maps-icons.googlecode.com/files/factory.png' 
-                on-dragend="doSth(customer)"></marker>
-            </ng-map>
-          </div>
+                <!-- <div class="box-footer box-comments">
+                  <div class="box-comment">
+                    <img class="img-circle img-sm" src="asset/admin/dist/img/user2-160x160.jpg" alt="User Image">
+
+                    <div class="comment-text">
+                          <span class="username">
+                            Maria Gonzales
+                            <span class="text-muted pull-right">8:03 PM Today</span>
+                          </span>
+                      It is a long established fact that a reader will be distracted
+                      by the readable content of a page when looking at its layout.
+                    </div>
+                    
+                  </div>
+                  <div class="box-comment">
+                    
+                    <img class="img-circle img-sm" src="asset/admin/dist/img/user2-160x160.jpg" alt="User Image">
+
+                    <div class="comment-text">
+                          <span class="username">
+                            Nora Havisham
+                            <span class="text-muted pull-right">8:03 PM Today</span>
+                          </span>
+                      The point of using Lorem Ipsum is that it has a more-or-less
+                      normal distribution of letters, as opposed to using
+                      'Content here, content here', making it look like readable English.
+                    </div>
+                    
+                  </div>
+                  
+                </div>
+
+                <div class="box-footer">
+                  <form action="#" method="post">
+                    <img class="img-responsive img-circle img-sm" src="asset/admin/dist/img/user2-160x160.jpg" alt="Alt Text">
+                    
+                    <div class="img-push">
+                      <input type="text" class="form-control input-sm" placeholder="Press enter to post comment">
+                    </div>
+                  </form>
+                </div> -->
+              </div>
+
+            </div>
+
         </div>
     </section>
-    <nav mfb-menu position="br" effect="zoomin" active-icon="ion-navicon-round" resting-icon="ion-plus-round" toggling-method="hover">
+    <!-- <nav mfb-menu position="br" effect="zoomin" active-icon="ion-navicon-round" resting-icon="ion-plus-round" toggling-method="hover">
               <button mfb-button icon="ion-social-freebsd-devil" label="Add"></button>
               <button mfb-button icon="ion-social-usd" label="Remove"></button>
               <button mfb-button icon="ion-android-mail" label="Edit"></button>
-    </nav>
+    </nav> -->
 </div>
 <div ng-include="'angular/partial/foottemplate.html'"></div>

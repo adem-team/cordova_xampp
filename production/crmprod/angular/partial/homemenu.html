@@ -12,37 +12,52 @@
       </div>
     </div>
     <!-- search form -->
-    <form action="#" method="get" class="sidebar-form">
+<!--     <form action="#" method="get" class="sidebar-form">
       <div class="input-group">
         <input type="text" name="q" class="form-control" placeholder="Search...">
         <span class="input-group-btn">
           <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
         </span>
       </div>
-    </form>
+    </form> -->
     <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <li class="header bg-red"><h4>PT. Lukison Group</h4></li>
-      <li class="active">
+      <li ng-class="activehome">
         <a href="#/home">
           <i class="fa fa-th"></i> <span>HOME</span>
-          <small class="label pull-right bg-green">new</small>
+          <!-- <small class="label pull-right bg-green">new</small> -->
         </a>
       </li>
-      <li class="active">
-        <a href="#/agenda">
-          <i class="fa fa-th"></i> <span>AGENDA</span>
-          <small class="label pull-right bg-green">new</small>
+
+      <li ng-class="activesetposition" ng-if="(userInfo.accessid == 1)">
+        <a href="#/setposition">
+          <i class="fa fa-th"></i> <span>SET POSITION</span>
+          <!-- <small class="label pull-right bg-green">new</small> -->
         </a>
       </li>
-      <li class="active">
+
+<!--       <li class="active">
+        <a href="#/setposition">
+          <i class="fa fa-th"></i> SET POSITION<span></span>
+          <small class="label pull-right bg-green">new</small>
+        </a>
+      </li> -->
+
+      <li ng-class="activeagendatoday">
+        <a href="#/agenda/{{tanggalharini}}">
+          <i class="fa fa-th"></i> <span>AGENDA TODAY</span>
+          <!-- <small class="label pull-right bg-green">new</small> -->
+        </a>
+      </li>
+      <li ng-class="activehistory">
         <a href="#/history">
           <i class="fa fa-th"></i> <span>HISTORY</span>
-          <small class="label pull-right bg-green">new</small>
+          <!-- <small class="label pull-right bg-green">new</small> -->
         </a>
       </li>
-      <li class="active">
+<!--       <li class="active">
         <a href="#/customer">
           <i class="fa fa-th"></i> <span>NEW CUSTOMER</span>
           <small class="label pull-right bg-green">new</small>
@@ -53,7 +68,7 @@
           <i class="fa fa-th"></i> <span>SETTING</span>
           <small class="label pull-right bg-green">new</small>
         </a>
-      </li>
+      </li> -->
     </ul>
   </section>
 </aside>

@@ -1,136 +1,27 @@
 'use strict';
 myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $window)
 {
-
 	var getUrl = function()
 	{
-		return "http://labtest3-api.int/master";
+		return "http://api.lukisongroup.com/master";
 	}
-
 	var gettoken = function()
 	{
 		return "?access-token=azLSTAYr7Y7TLsEAML-LsVq9cAXLyAWa";
 	}
 	
-
-
-	var listcustomer = function()
-	{
-		var url = getUrl();
-		var deferred = $q.defer();
-		var url = url + "/customers";
+	var listagenda = function(userInfo,tanggalplan)
+	{ 
+		var idsalesman		= userInfo.id;
+		var globalurl 		= getUrl();
+		var deferred 		= $q.defer();
+		var url = globalurl + "/jadwalkunjungans/search?USER_ID="+ idsalesman + "&TGL1=" + tanggalplan;
 		var method ="GET";
-		$http({method:method, url:url})
+		$http({method:method, url:url,cache:false})
         .success(function(response) 
         {
-		  deferred.resolve(response);
+    		deferred.resolve(response);
         })
-
-        .error(function()
-        {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-	}
-
-	var listgroupcustomer = function()
-	{
-		var url = getUrl();
-		var deferred = $q.defer();
-		var url = url + "/groupcusts";
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-
-        .error(function()
-        {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-	}
-
-	var listdistributor = function()
-	{
-		var url = getUrl();
-		var deferred = $q.defer();
-		var url = url + "/distributors";
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-
-        .error(function()
-        {
-            deferred.reject(error);
-        });
-
-        return deferred.promise;
-	}
-	var listparentcustomerkategoris = function()
-	{
-		var url = getUrl();
-		
-		var deferred = $q.defer();
-		var url = url + "/customkategoris/search?CUST_KTG_PARENT=0";
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-
-        .error(function()
-        {
-            deferred.reject(error);
-            console.log('List Customers Error');
-        });
-
-        return deferred.promise;
-	}
-
-	var listchildcustomerkategoris = function(idparent)
-	{
-		var url = getUrl();
-		
-		var deferred = $q.defer();
-		var url = url + "/customkategoris/search?CUST_KTG_PARENT="+ idparent;
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-
-        .error(function()
-        {
-            deferred.reject(error);
-            console.log('List Customers Error');
-        });
-
-        return deferred.promise;
-	}
-
-	var listagenda = function(idsalesman,tanggal)
-	{
-		var url = getUrl();
-		
-		var deferred = $q.defer();
-		//var url = "http://api.lukison.int/master" + "/jadwalkunjungans/search?USER_ID="+ idsalesman + "&TGL1=" + tanggal;
-		var url = "http://labtest3-api.int/master" + "/jadwalkunjungans/search?USER_ID="+ idsalesman + "&TGL1=" + tanggal;
-		var method ="GET";
-		$http({method:method, url:url})
-        .success(function(response) 
-        {
-		  deferred.resolve(response);
-        })
-
         .error(function(err,status)
         {
 			if (status === 404)
@@ -148,18 +39,15 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 
 	var alllistagenda = function(idsalesman)
 	{
-		var url = getUrl();
-		
+		var globalurl = getUrl();
 		var deferred = $q.defer();
-		//var url = "http://api.lukison.int/master" + "/jadwalkunjungans/search?USER_ID="+ idsalesman + "&TGL1=" + tanggal;
-		var url = "http://labtest3-api.int/master" + "/jadwalkunjungans/search?USER_ID="+ idsalesman;
+		var url = globalurl + "/jadwalkunjungans/search?USER_ID="+ idsalesman;
 		var method ="GET";
-		$http({method:method, url:url})
+		$http({method:method, url:url,cache:false})
         .success(function(response) 
         {
-		  deferred.resolve(response);
+		  	deferred.resolve(response);
         })
-
         .error(function(err,status)
         {
 			if (status === 404)
@@ -174,14 +62,99 @@ myAppModule.factory('apiService', ["$http","$q","$window",function($http, $q, $w
 
         return deferred.promise;
 	}
+	
+	var listhistory = function(userinfo)
+	{
+		var iduser = userinfo.id;
+		var globalurl = getUrl();
+		var deferred = $q.defer();
+		var url = globalurl + "/jadwalkunjungans/search?USER_ID=" + iduser;
+		var method ="GET";
+		$http({method:method, url:url,cache:false})
+		.success(function(response,status,headers) 
+		{
+			//console.log(headers());
+			deferred.resolve(response);
+		})
+		.error(function(err,status)
+        {
+			if (status === 404)
+			{
+	        	deferred.resolve([]);
+	      	}
+	      	else	
+      		{
+	        	deferred.reject(err);
+	      	}
+        });
+		return deferred.promise;
+	}
+	var scdlgroupbyjadwalkunjungan = function(userInfo,tanggalplan)
+	{
+		var userid = userInfo.id;
+		var globalurl = getUrl();
+		var deferred = $q.defer();
+		var url = globalurl + "/jadwalkunjungans/search?TGL1=" + tanggalplan + "&USER_ID=" + userid;
+		var method ="GET";
+		$http({method:method, url:url,cache:false})
+		.success(function(response) 
+		{
+			deferred.resolve(response);
+		})
+		.error(function(err,status)
+        {
+			if (status === 404)
+			{
+	        	deferred.resolve([]);
+	      	}
+	      	else	
+      		{
+	        	deferred.reject(err);
+	      	}
+        });
+		return deferred.promise;
+	}
+
+	var datasalesmanmemo = function()
+	{
+		var config = 
+        {
+            headers : 
+            {
+                // 'Accept': 'application/json',
+                // 'Pragma': 'no-cache',
+                // 'Content-Type': 'application/x-www-form-urlencoded;application/json;charset=utf-8;'
+                
+            }
+        };
+		var url = getUrl();
+		var deferred = $q.defer();
+		var url = url + "/salesmanmemos";
+		var method ="GET";
+		$http({method:method, url:url,config:config,cache:false})
+		.success(function(response) 
+		{
+			deferred.resolve(response);
+		})
+		.error(function(err,status)
+        {
+			if (status === 404)
+			{
+	        	deferred.resolve([]);
+	      	}
+	      	else	
+      		{
+	        	deferred.reject(err);
+	      	}
+        });
+		return deferred.promise;
+	}
 
 	return{
-			listcustomer:listcustomer,
-			listdistributor:listdistributor,
-			listparentcustomerkategoris:listparentcustomerkategoris,
-			listchildcustomerkategoris:listchildcustomerkategoris,
-			listgroupcustomer:listgroupcustomer,
 			listagenda:listagenda,
-			alllistagenda:alllistagenda
+			alllistagenda:alllistagenda,
+			listhistory:listhistory,
+			scdlgroupbyjadwalkunjungan:scdlgroupbyjadwalkunjungan,
+			datasalesmanmemo:datasalesmanmemo
 		}
 }]);
